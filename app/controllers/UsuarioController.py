@@ -104,3 +104,21 @@ class UsuarioController:
             app.session.rollback()
             flash(str(erro))
             redirect()
+
+    def capturar_dados_do_usuario():
+        try:
+            id_usuario = session["usuario"]
+
+            usuario = (
+                app.session.query(UsuariosModel)
+                .filter_by(id_usuario=id_usuario)
+                .first()
+            )
+
+            return render_template()
+        
+        except Exception as erro:
+            app.session.rollback()
+            flash(str(erro))
+            redirect()
+    
