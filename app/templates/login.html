@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet"
+            href="{{url_for('static', filename='css/login/login.css')}}">
+        <link rel="stylesheet"
+            href="{{url_for('static', filename='css/mensagens.css')}}">
+    </head>
+    <body>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <section class="mensagens">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            </section>
+            {% endif %}
+        {% endwith %}
+        <div class="wrapper">
+            <img src="{{url_for('static', filename='imagens/logo.png')}}"
+                alt="imagem de fundo" class="imagem">
+            <div class="card-switch">
+                <label class="switch">
+                    <input type="checkbox" class="toggle">
+                    <span class="slider"></span>
+                    <span class="card-side"></span>
+                    <div class="flip-card__inner">
+                        <div class="flip-card__front">
+                            <div class="title">Entrar</div>
+                            <form class="flip-card__form" action>
+                                <input class="flip-card__input" name="email"
+                                    placeholder="Email" type="email">
+                                <input class="flip-card__input" name="password"
+                                    placeholder="Senha" type="password">
+                                <button class="flip-card__btn">Entrar</button>
+                            </form>
+                        </div>
+                        <div class="flip-card__back">
+                            <div class="title">Cadastrar</div>
+                            <form class="flip-card__form"
+                                action="{{url_for('usuarios.cadastro_usuario')}}"
+                                method="POST">
+                                <input class="flip-card__input"
+                                    placeholder="Nome" type="text" name="nome">
+                                <input class="flip-card__input" name="email"
+                                    placeholder="Email" type="email">
+                                <input class="flip-card__input" name="senha"
+                                    placeholder="Senha" type="password">
+                                <button
+                                    class="flip-card__btn">Cadastrar!</button>
+                            </form>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+    </body>
+</html>

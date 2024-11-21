@@ -1,8 +1,7 @@
-from flask import Flask
+from flask import Flask, render_template
 from .configs.Database import Database
-
 from flask_sqlalchemy import SQLAlchemy
-import os
+from app.models import CantoresModel,CantoresMusicasModel,MusicasModel,CategoriasModel,UsuariosModel,CurtidasModel,MusicasCategoriasModel
 
 banco_de_dados = SQLAlchemy()
 
@@ -23,7 +22,13 @@ def create_app()->Flask:
         
     @app.route("/")
     def index():
-        return f"Iniciado com sucesso\n{ app.config.get('SECRET_KEY') }"
+        return render_template('login.html')
+    
+    from app.routes.paginasRoute import paginas_bp
+    app.register_blueprint(paginas_bp, url_prefix='/paginas')
+    
+    from app.routes.usuarioRoute import usuario_bp
+    app.register_blueprint(usuario_bp, url_prefix='/usuario')
         
     return app
 
