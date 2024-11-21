@@ -1,0 +1,10 @@
+.mensagens{
+    position:absolute;
+    top: 0;
+    width: 400px;
+    height: 50px;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    color: black;
+}
