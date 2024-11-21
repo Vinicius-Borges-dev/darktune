@@ -10,14 +10,16 @@ class UsuariosModel(Base):
     nome = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
     senha = Column(String(255), nullable=False)
+    nivel = Column(String(20), nullable=False)
     
     curtida = relationship('CurtidasModel', back_populates='usuario')
     musica = relationship('MusicasModel', back_populates='usuario')
     
-    def __init__(self, nome:str, email:str, senha:str)->None:
+    def __init__(self, nome:str, email:str, senha:str, nivel:str)->None:
         self.nome = nome
         self.email = email
         self.senha = senha
+        self.nivel = nivel
     
     def __repr__(self)->str:
         return f"<Usuário {self.id_usuario}>"
