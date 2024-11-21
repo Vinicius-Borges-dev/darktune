@@ -7,3 +7,7 @@ __pycache__/
 .env
 
 .flaskenv
+
+!instance/
+
+instance/*
