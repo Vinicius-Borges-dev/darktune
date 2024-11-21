@@ -22,9 +22,8 @@ def create_app()->Flask:
     with app.app_context():
         Database.criar_tabelas() """
         
-    @app.route("/")
-    def index():
-        return f"Iniciado com sucesso\n{ app.config.get('SECRET_KEY') }"
+    from app.routes.mainRoute import main_bp
+    app.register_blueprint(main_bp)
         
     return app
 
