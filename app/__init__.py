@@ -8,19 +8,18 @@ banco_de_dados = SQLAlchemy()
 
 def create_app()->Flask:
     app = Flask(__name__)
-    
-    print(app.config['SECRET_KEY'])
-    # app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-    # app.config['UPLOAD_FOLDER'] = "src/static/uploads"
     app.config.from_pyfile(os.path.join("configs", "settings.py"))
     
-    """ engine = Database.criar_conexao(app)
+    app.config['SECRET_KEY'] = app.config.get("SECRET_KEY")
+    app.config['UPLOAD_FOLDER'] = "src/static/uploads"
+    
+    engine = Database.criar_conexao(app)
     app.engine = engine
     
     banco_de_dados.init_app(app)
     
     with app.app_context():
-        Database.criar_tabelas() """
+        Database.criar_tabelas()
         
     @app.route("/")
     def index():
