@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #000000; /* Mais escuro */
+    color: #FFFFFF; /* Texto claro */
+  }
+  
+  .sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: #111111; /* Escurecendo a barra lateral */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 150px;
+    height: 120px;
+    margin: 20px 0;
+  }
+  
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* Bordas arredondadas */
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin: 10px 0;
+  }
+  
+  nav ul li a {
+    color: #8a8a8a;
+    text-decoration: none;
+  }
+  
+  .main-content {
+    margin-left: 200px;
+    padding: 20px;
+    background-color: #000000; /* Fundo mais escuro */
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #111111; /* Escurecendo a barra de navegação */
+  }
+  
+  header .search-bar {
+    padding: 10px;
+    width: 70%;
+    border: none;
+    border-radius: 20px;
+    background-color: #424242; /* Fundo da barra de pesquisa escurecido */
+    color: #FFFFFF;
+    font-size: 16px;
+  }
+  
+  header .search-bar::placeholder {
+    color: #AAAAAA; /* Cor do texto do placeholder */
+  }
+  
+  header .user-button {
+    background-color: #5c5c5c;
+    color: #FFF;
+    border: none;
+    padding: 6px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+  }
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    width: 80%; /* Ajuste a largura conforme necessário */
+    margin: auto;
+  }
+  
+  .carousel-item {
+    position: relative;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform-origin: center;
+    opacity: 0.5; /* Imagens laterais mais apagadas */
+    flex: 0 0 auto;
+  }
+  
+  .carousel-item.active {
+    transform: scale(1.2); /* Aumenta a imagem central */
+    opacity: 1; /* Torna a imagem central visível */
+    z-index: 2; /* Traz para frente */
+  }
+  
+  .carousel-item.left, .carousel-item.right {
+    transform: scale(0.9); /* Reduz as imagens laterais */
+    z-index: 1;
+  }
+  
+  .carousel-item img {
+    border-radius: 8px;
+    width: 200px; /* Tamanho padrão */
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .carousel-item.active img {
+    width: 250px; /* Tamanho maior para a imagem central */
+    height: 250px;
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+  }
+  
+  .carousel-item .text-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0; /* Texto invisível inicialmente */
+    transition: opacity 0.5s ease;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .carousel-item.active .text-overlay {
+    opacity: 100; /* Mostra o texto somente na imagem central */
+  }
+  
+  .prev-button, .next-button {
+    background-color: transparent;
+    border: none;
+    color: #7e7e7e;
+    font-size: 1em;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+  
+  .prev-button {
+    left: 10px;
+  }
+  
+  .next-button {
+    right: 10px;
+  }
+  

@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="../static/css/login/login.css">
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <section class="mensagens">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endwith %}
     <div class="wrapper">
         <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="" class="imagem">
         <div class="card-switch">
