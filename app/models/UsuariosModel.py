@@ -11,8 +11,8 @@ class UsuariosModel(Base):
     email = Column(String(100), nullable=False)
     senha = Column(String(255), nullable=False)
     
-    curtida = relationship('CurtidasModel')
-    musica = relationship('MusicasModel')
+    curtida = relationship('CurtidasModel', back_populates='usuario')
+    musica = relationship('MusicasModel', back_populates='usuario')
     
     def __init__(self, nome:str, email:str, senha:str)->None:
         self.nome = nome

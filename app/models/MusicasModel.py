@@ -12,7 +12,7 @@ class MusicasModel(Base):
     url_imagem = Column(String(255), nullable=False)
     fk_id_usuario = Column(Integer, ForeignKey('usuarios.id_usuario'), nullable=False)
     
-    usuario = relationship('UsuarioModel', back_populates='musica')
+    usuario = relationship('UsuariosModel', back_populates='musica')
     curtida = relationship('CurtidasModel')
     cantor = relationship('CantoresMusicasModel')
     

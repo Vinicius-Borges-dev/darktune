@@ -11,7 +11,7 @@ class CurtidasModel(Base):
     fk_id_usuario = Column(Integer, ForeignKey('usuarios.id_usuario'), nullable=False)
     fk_id_musica = Column(Integer, ForeignKey('musicas.id_musica'), nullable=False)
     
-    usuario = relationship('UsuarioModel', back_populates='curtida')
+    usuario = relationship('UsuariosModel', back_populates='curtida')
     musica = relationship('MusicasModel', back_populates='curtida')
     
     def __init__(self, id_usuario:int, id_musica:int)->None:
