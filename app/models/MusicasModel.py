@@ -11,12 +11,13 @@ class MusicasModel(Base):
     nome_musica = Column(String(150), nullable=False)
     url_imagem = Column(String(255), nullable=False)
     fk_id_usuario = Column(Integer, ForeignKey('usuarios.id_usuario'), nullable=False)
+    fk_id_categoria = Column(Integer, ForeignKey('categorias.id_categoria'), nullable=False)
     
     usuario = relationship('UsuariosModel', back_populates='musica')
     curtida = relationship('CurtidasModel')
-    cantor = relationship('CantoresMusicasModel')
+    cantor_musica = relationship('CantoresMusicasModel')
     
-    musicas_categorias = relationship('MusicasCategoriasModel')
+    musicas_categorias = relationship('MusicasCategoriasModel', back_populates='musica')
     
     
     def __init__(self, nome_musica:str, url_imagem:str, id_usuario:int)->None:

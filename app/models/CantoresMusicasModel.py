@@ -12,7 +12,7 @@ class CantoresMusicasModel(Base):
     fk_id_cantor = Column(Integer, ForeignKey('cantores.id_cantor'), nullable=False)
     fk_id_musica = Column(Integer, ForeignKey('musicas.id_musica'), nullable=False)
     
-    musica = relationship('MusicasModel', back_populates='cantor')
+    musica = relationship('MusicasModel', back_populates='cantor_musica')
     cantor = relationship('CantoresModel', back_populates='cantor_musica')
     
     def __init__(self, id_cantor:int, id_musica:int)->None:
