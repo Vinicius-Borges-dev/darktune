@@ -35,8 +35,8 @@ class UsuarioController:
 
                 return redirect("/")
         except Exception as erro:
-            flash(str(erro))
-            redirect("/")
+            raise erro
+            return redirect("/")
 
     def logar():
         email = request.form.get("email")

@@ -5,3 +5,5 @@ from .CurtidasModel import CurtidasModel
 from . MusicasCategoriasModel import MusicasCategoriasModel
 from .MusicasModel import MusicasModel
 from .UsuariosModel import UsuariosModel
+from .ContatosModel import ContatosModel
+from .ContatosUsuariosModel import ContatosUsuariosModel

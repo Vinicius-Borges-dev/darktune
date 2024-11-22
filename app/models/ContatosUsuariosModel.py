@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from app.configs.Database import Base
 from typing import Dict
 from sqlalchemy.orm import relationship
@@ -9,8 +9,8 @@ class ContatosUsuariosModel(Base):
     __tablename__ = "contatos_usuarios"
 
     id_contato_usuario = Column(Integer, primary_key=True)
-    fk_id_usuario = Column(Integer, nullable=False)
-    fk_id_contato = Column(Integer, nullable=False)
+    fk_id_usuario = Column(Integer, ForeignKey("usuarios.id_usuario"), nullable=False)
+    fk_id_contato = Column(Integer, ForeignKey("contatos.id_contato"), nullable=False)
     
     usuario = relationship('UsuariosModel', back_populates='contatos_usuarios')
     contato = relationship('ContatosModel', back_populates='contatos_usuarios')

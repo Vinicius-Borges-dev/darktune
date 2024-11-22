@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from .configs.Database import Database
 from flask_sqlalchemy import SQLAlchemy
-from app.models import CantoresModel,CantoresMusicasModel,MusicasModel,CategoriasModel,UsuariosModel,CurtidasModel,MusicasCategoriasModel
+from app.models import CantoresModel,CantoresMusicasModel,MusicasModel,CategoriasModel,UsuariosModel,CurtidasModel,MusicasCategoriasModel, ContatosUsuariosModel, ContatosModel
 
 banco_de_dados = SQLAlchemy()
 
