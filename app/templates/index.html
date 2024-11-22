@@ -7,73 +7,94 @@
   <link rel="stylesheet" href="/app/static/css/home/home.css">
 </head>
 <body>
+  <!-- Barra lateral com links de navegação -->
   <div class="sidebar">
     <div class="logo">
       <img src="/app/static/imagens/logo.png" alt="Logo Darktune">
     </div>
     <nav>
       <ul>
-        <li><a href="#home">Home</a></li>
+        <li><a href="/app/templates/index.html"></a></li>
         <li><a href="#contact">Contato</a></li>
         <li><a href="#music-list">Lista de Músicas</a></li>
         <li><a href="#music-upload">Cadastro de Músicas</a></li>
-        <li><a href="#profile">Perfil</a></li>
       </ul>
     </nav>
   </div>
+
+  <!-- Conteúdo principal da página -->
   <div class="main-content">
     <header>
         <input type="text" placeholder="Pesquisar..." class="search-bar">
-        <button class="user-button" lin>Usuário</button>
+        <button class="user-button">Usuário</button>
     </header>
     
+    <!-- Seção do carrossel de imagens -->
     <section id="carousel">
         <div class="carousel-wrapper">
           <button class="prev-button">⬅</button>
           <div class="carousel" id="image-carousel">
             <div class="carousel-item">
-              <img src="/app/static/imagens/img1.jpg" alt="Imagem 1">
+              <img src="/app/static/imagens/img5.webp" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 1</p>
                 <p>autor 1</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img2.jpg" alt="Imagem 2">
+              <img src="/app/static/imagens/img6.jpeg" alt="Imagem 2">
               <div class="text-overlay">
                 <p>música 2</p>
                 <p>autor 2</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img3.jpg" alt="Imagem 3">
+              <img src="/app/static/imagens/img2.webp" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 3</p>
                 <p>autor 3</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img4.jpg" alt="Imagem 4">
+              <img src="/app/static/imagens/img1.webp" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 4</p>
                 <p>autor 4</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img5.jpg" alt="Imagem 5">
+              <img src="/app/static/imagens/img3.jpeg" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 5</p>
                 <p>autor 5</p>
               </div>
             </div>
+            <div class="carousel-item">
+              <img src="/app/static/imagens/img4.webp" alt="Imagem 1">
+              <div class="text-overlay">
+                <p>música 6</p>
+                <p>autor 6</p>
+              </div>
+            </div>
           </div>
           <button class="next-button">⮕</button>
         </div>
-      </section>
-      
-      
-    <!-- Conteúdo da página será adicionado aqui -->
+    </section>
+
+    <!-- Galeria de música -->
+    <div class="music-gallery">
+        <div class="music-row">
+          <div class="music-card">
+            <img src="/app/static/imagens/img6.jpeg" alt="Imagem da música">
+            <div class="music-info">
+              <p class="music-name">Nome da música</p>
+              <p class="artist-name">Artista</p>
+              <button class="control-button">❚❚</button>
+            </div>
+          </div>
+    </div>
   </div>
 </body>
+<!-- Link para o arquivo JavaScript da página -->
 <script src="/app/static/js/home/home.js"></script>
 </html>
