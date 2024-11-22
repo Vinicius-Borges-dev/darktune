@@ -26,3 +26,7 @@ def conta(id:int):
     # Buscar a conta do usuário pelo id
     # Buscar as músicas curtidas pelo usuário
     return render_template('conta.html')
+
+@paginas_bp.route('/cadastro/musica')
+def cadastro_musica():
+    return render_template('cadastro_musica.html')
