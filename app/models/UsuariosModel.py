@@ -13,7 +13,7 @@ class UsuariosModel(Base):
     nivel = Column(String(20), nullable=False)
     
     curtida = relationship('CurtidasModel', back_populates='usuario')
-    musica = relationship('MusicasModel', back_populates='usuario')
+    musicas = relationship('MusicasModel', back_populates='usuario')
     contatos_usuarios = relationship('ContatosUsuariosModel', back_populates='usuario')
     
     def __init__(self, nome:str, email:str, senha:str, nivel:str)->None:
