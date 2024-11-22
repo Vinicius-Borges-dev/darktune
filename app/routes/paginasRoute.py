@@ -5,7 +5,7 @@ paginas_bp = Blueprint("paginas", __name__)
 @paginas_bp.route('/home')
 def home():
     # Buscar outras 6 músicas aletórias para exibir na home
-    return render_template('home.html')
+    return render_template('index.html')
 
 @paginas_bp.route('/contato')
 def contato():
