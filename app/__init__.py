@@ -26,6 +26,9 @@ def create_app()->Flask:
     
     from app.routes.usuarioRoute import usuario_bp
     app.register_blueprint(usuario_bp, url_prefix='/usuario')
+    
+    from app.routes.musicaRoute import musica_bp
+    app.register_blueprint(musica_bp, url_prefix='/musicas')
         
     return app
 
