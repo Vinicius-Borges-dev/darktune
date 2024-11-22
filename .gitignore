@@ -11,3 +11,7 @@ __pycache__/
 !instance/
 
 instance/*
+
+!app/static/uploads/
+
+app/static/uploads/*
