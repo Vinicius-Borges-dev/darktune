@@ -35,7 +35,7 @@ class UsuarioController:
 
                 return redirect("/")
         except Exception as erro:
-            raise erro
+            flash(str(erro))
             return redirect("/")
 
     def logar():
@@ -54,7 +54,7 @@ class UsuarioController:
                     session["usuario"] = usuario.id_usuario
                     session["nivel"] = usuario.id_usuario
                     flash("Login efetuado com sucesso")
-                    return redirect("/")
+                    return redirect(url_for("paginas.home"))
                 else:
                     flash("Email ou senha incorreto")
                     return redirect("/")
