@@ -8,7 +8,6 @@ banco_de_dados = SQLAlchemy()
 def create_app()->Flask:
     app = Flask(__name__)
     
-    
     engine = Database.criar_conexao(app)
     app.engine = engine
     
@@ -16,8 +15,8 @@ def create_app()->Flask:
     
     with app.app_context():
         Database.criar_tabelas()
-    
-    @app.route('/')
+        
+    @app.route("/")
     def index():
         return render_template('login.html')
     
