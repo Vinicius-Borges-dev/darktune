@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darktune</title>
-  <link rel="stylesheet" href="/app/static/css/home/home.css">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/home/home.css')}}">
 </head>
 <body>
   <!-- Barra lateral com links de navegação -->
   <div class="sidebar">
     <div class="logo">
-      <img src="/app/static/imagens/logo.png" alt="Logo Darktune">
+      <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="">
     </div>
     <nav>
       <ul>
-        <li><a href="/app/templates/index.html"></a></li>
-        <li><a href="#contact">Contato</a></li>
+        <li><a href="/app/templates/index.html">Home</a></li>
+        <li><a href="/app/templates/contato.html">Contato</a></li>
         <li><a href="#music-list">Lista de Músicas</a></li>
         <li><a href="#music-upload">Cadastro de Músicas</a></li>
       </ul>
@@ -35,42 +35,42 @@
           <button class="prev-button">⬅</button>
           <div class="carousel" id="image-carousel">
             <div class="carousel-item">
-              <img src="/app/static/imagens/img5.webp" alt="Imagem 1">
+              <img src="{{url_for('static', filename='imagens/img5.webp')}}" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 1</p>
                 <p>autor 1</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img6.jpeg" alt="Imagem 2">
+              <img src="{{url_for('static', filename='imagens/img6.jpeg')}}" alt="Imagem 2">
               <div class="text-overlay">
                 <p>música 2</p>
                 <p>autor 2</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img2.webp" alt="Imagem 1">
+              <img src="{{url_for('static', filename='imagens/img2.webp')}}" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 3</p>
                 <p>autor 3</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img1.webp" alt="Imagem 1">
+              <img src="{{url_for('static', filename='imagens/img1.webp')}}" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 4</p>
                 <p>autor 4</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img3.jpeg" alt="Imagem 1">
+              <img src="{{url_for('static', filename='imagens/img3.jpeg')}}" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 5</p>
                 <p>autor 5</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="/app/static/imagens/img4.webp" alt="Imagem 1">
+              <img src="{{url_for('static', filename='imagens/img4.webp')}}" alt="Imagem 1">
               <div class="text-overlay">
                 <p>música 6</p>
                 <p>autor 6</p>
