@@ -1,89 +1,130 @@
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #000000;
-    color: #FFFFFF;
-  }
-  
-  /* Barra Lateral */
-  .sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: #111111;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 150px;
-    height: 120px;
-    margin: 20px 0;
-  }
-  
-  .logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  /* Navegação */
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  nav ul li {
-    margin: 10px 0;
-  }
-  
-  nav ul li a {
-    color: #8a8a8a;
-    text-decoration: none;
-  }
-  
-  /* Conteúdo Principal */
-  .main-content {
-    margin-left: 200px;
-    padding: 20px;
-    background-color: #000000;
-  }
-  
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #111111;
-    border-radius: 30px;
-  }
-  
-  /* Barra de Pesquisa */
-  header .search-bar {
-    padding: 10px;
-    width: 70%;
-    border: none;
-    border-radius: 20px;
-    background-color: #424242;
-    color: #FFFFFF;
-    font-size: 16px;
-  }
-  
-  header .search-bar::placeholder {
-    color: #AAAAAA;
-  }
-  
-  /* Botão de Usuário */
-  header .user-button {
-    background-color: #5c5c5c;
-    color: #FFF;
-    border: none;
-    padding: 6px 20px;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 16px;
-  }
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Barra Lateral */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 150px;
+  height: 120px;
+  margin: 20px 0;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Navegação */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 10px 0;
+}
+
+nav ul li a {
+  color: #8a8a8a;
+  text-decoration: none;
+}
+
+/* Conteúdo Principal */
+.main-content {
+  margin-left: 200px;
+  padding: 20px;
+  background-color: #000000;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #111111;
+  border-radius: 30px;
+}
+
+/* Estilo da Página de Contato */
+.container {
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin: 50px auto; /* Espaço superior para deslocar o card */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Helvetica', sans-serif; /* Fonte atualizada */
+}
+
+.contact-content {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;  
+}
+
+form, .contact-info {
+  flex: 1;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding:10px;
+  margin: 10px 0;
+  background-color: #333;
+  border: none;
+  color: #000000;
+}
+
+input[type="submit"] {
+  background-color: #666;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+input[type="submit"]:hover {
+  background-color: #444;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 90px; /* Espaço à esquerda */
+  font-size: 1.1em; /* Tamanho da fonte */
+  text-align: left; /* Centralizado à esquerda */
+  margin-top: -60px;
+}
+
+.social-icons {
+  margin-top: 20px; /* Espaço superior */
+}
+
+.social-icons img {
+  width: 40px;
+  margin: 0 10px;
+  cursor: pointer;
+}
