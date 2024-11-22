@@ -14,7 +14,7 @@ def contato():
 @paginas_bp.route('/musicas')
 def musicas():
     # Listar todas as músicas
-    return render_template('musicas.html')
+    return render_template('index.html')
 
 @paginas_bp.route('/musicas/<int:id>')
 def musica(id):
