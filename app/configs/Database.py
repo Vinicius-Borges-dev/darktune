@@ -20,7 +20,8 @@ class Database:
         Session = sessionmaker(bind=engine)
         
         app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-        app.config['UPLOAD_FOLDER'] = "app/static/uploads"
+        app.config['UPLOAD_IMAGES_FOLDER'] = "app/static/uploads/imagens"
+        app.config['UPLOAD_AUDIOS_FOLDER'] = "app/static/uploads/audios"
         app.config['SESSSION_PERMANENT'] = True
         app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
         app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
