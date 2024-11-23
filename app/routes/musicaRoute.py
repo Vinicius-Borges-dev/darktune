@@ -1,11 +1,14 @@
-from flask import Blueprint, request, render_template, redirect, url_for, flash, session
+from flask import Blueprint
 from app.controllers.MusicaController import MusicaController
+from app.middlewares.MusicaMiddleware import MusicaMiddleware
 
 musica_bp = Blueprint('musicas', __name__)
 
+
 @musica_bp.route('/cadastro', methods=['POST'])
+@MusicaMiddleware.checar_existencia_de_musica
 def cadastro_musica():
-    return MusicaController.criar_nova_musica()
+    return MusicaController().criar_nova_musica()
 
 @musica_bp.route('/editar', methods=['POST'])
 def editar_musica():

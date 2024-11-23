@@ -14,7 +14,7 @@ class UsuariosModel(Base):
     
     curtida = relationship('CurtidasModel', back_populates='usuario')
     musicas = relationship('MusicasModel', back_populates='usuario')
-    contatos_usuarios = relationship('ContatosUsuariosModel', back_populates='usuario')
+    contatos_usuarios = relationship('ContatosUsuariosModel')
     
     def __init__(self, nome:str, email:str, senha:str, nivel:str)->None:
         self.nome = nome
