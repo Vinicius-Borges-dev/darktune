@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template
+from app.controllers.MusicaController import MusicaController
 
 paginas_bp = Blueprint("paginas", __name__)
 
 @paginas_bp.route('/home')
 def home():
-    # Buscar outras 6 músicas aletórias para exibir na home
-    return render_template('index.html')
+    musicas = MusicaController().capturar_musicas_aleatorias_para_exibicao()
+    return render_template('index.html', musicas=musicas)
 
 @paginas_bp.route('/contato')
 def contato():

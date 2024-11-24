@@ -32,7 +32,7 @@ def buscar_musica():
 
 @musica_bp.route('/listar', methods=['GET'])
 def listar_musicas():
-    pass
+    return MusicaController().capturar_musicas_aleatorias_para_exibicao()
 
 @musica_bp.route('/listar/nome/<string:nome_da_musica>', methods=['GET'])
 def listar_musicas_nome(nome_da_musica: str):

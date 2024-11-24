@@ -30,7 +30,7 @@ class MusicaController:
             caminho_imagem = os.path.join(
                 app.config["UPLOAD_IMAGES_FOLDER"], imagem.filename
             ).replace("\\", "/")
-            
+
             nova_musica = MusicasModel(
                 nome_musica=nome_musica.lower(),
                 url_imagem=caminho_imagem,
@@ -79,8 +79,28 @@ class MusicaController:
     def capturar_todas_as_musicas():
         pass
 
-    def capturar_musicas_aleatorias_para_exibicao():
-        pass
+    def capturar_musicas_aleatorias_para_exibicao(self):
+        musicas = app.session.query(MusicasModel).all()
+        lista_musicas = [musica.to_dict() for musica in musicas]
+        for musica in lista_musicas:
+            nome_cantores = (
+                app.session.query(CantoresModel.nome_cantor)
+                .join(
+                    CantoresMusicasModel,
+                    CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                )
+                .join(
+                    MusicasModel,
+                    MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                )
+                .filter(MusicasModel.id_musica == musica["id"])
+                .limit(6)
+                .all()
+            )
+
+            musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+            musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+        return lista_musicas
 
     def capturar_musicas_por_nome():
         pass
