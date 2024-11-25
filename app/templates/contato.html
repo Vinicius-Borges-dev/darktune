@@ -14,8 +14,8 @@
     </div>
     <nav>
       <ul>
-        <li><a href="/app/templates/index.html">Home</a></li>
-        <li><a href="/app/templates/contato.html">Contato</a></li>
+        <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+        <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
         <li><a href="#music-list">Lista de Músicas</a></li>
         <li><a href="#music-upload">Cadastro de Músicas</a></li>
       </ul>
@@ -40,6 +40,18 @@
         </div>
     </div>
 </div>
+
+<div class="messages-dropdown">
+  <button class="dropdown-btn">mensagens</button>
+  <div class="dropdown-content">
+      <p>Mensagem 1: ...</p>
+      <p>Mensagem 2: ...</p>
+      <p>Mensagem 3: ...</p>
+  </div>
+</div>
+
+
+<script src="{{url_for('static', filename='js/contato/contato.js')}}"></script>
 
 </body>
 </html>
