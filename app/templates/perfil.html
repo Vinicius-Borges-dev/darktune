@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/app/static/css/perfil/perfil.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/app/static/imagens/logo.png" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/app/templates/index.html">Home</a></li>
+                <li><a href="/app/templates/contato.html">Contato</a></li>
+                <li><a href="#music-list">Lista de Músicas</a></li>
+                <li><a href="#music-upload">Cadastro de Músicas</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <div id="profile-section" class="section">
+            <img src="/app/static/imagens/img3.jpeg" alt="Imagem do usuário" class="profile-img">
+            <h1>Nome do Usuário</h1>
+            <button onclick="showEditSection()">Editar Perfil</button>
+            <h2>Músicas Curtidas</h2>
+            <ul class="songs-list">
+                <li>
+                    <img src="/app/static/imagens/album1.jpg" alt="Imagem do álbum" class="album-img">
+                    <div class="song-info">
+                        <span class="song-title">Música 1</span>
+                        <span class="song-artist">Artista 1</span>
+                    </div>
+                    <div class="buttons">
+                        <button class="heart-button">♡</button>
+                        <button class="play-button">▶</button>
+                        
+                    </div>
+                </li>
+                <li>
+                    <img src="/app/static/imagens/album2.jpg" alt="Imagem do álbum" class="album-img">
+                    <div class="song-info">
+                        <span class="song-title">Música 2</span>
+                        <span class="song-artist">Artista 2</span>
+                    </div>
+                    <div class="buttons">
+                        <button class="heart-button">♡</button>
+                        <button class="play-button">▶</button>
+                    </div>
+                </li>
+                <!-- Adicione mais músicas aqui -->
+            </ul>
+        </div>
+        <div id="edit-section" class="section" style="display:none;">
+            <button class="back-button" onclick="showProfileSection()">&larr; Voltar ao Perfil</button>
+            <div class="form-group">
+                <label for="user-img">Imagem do Usuário</label>
+                <input type="file" id="user-img">
+            </div>
+            <div class="form-group">
+                <label for="user-name">Nome</label>
+                <input type="text" id="user-name" value="Nome do Usuário">
+            </div>
+            <div class="form-group">
+                <label for="user-email">Email</label>
+                <input type="email" id="user-email" value="usuario@exemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="user-password">Senha</label>
+                <input type="password" id="user-password">
+            </div>
+        </div>
+    </div>
+    <script src="/app/static/js/perfil/perfil.js"></script>
+</body>
+
+
+
+</html>
