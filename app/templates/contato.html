@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/app/static/css/contato/contato.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/app/static/css/contato/contato.css" />
+  </head>
+  <body>
     <!-- Barra lateral com links de navegação -->
-  <div class="sidebar">
-    <div class="logo">
-      <img src="/app/static/imagens/logo.png" alt="Logo Darktune">
+    <div class="sidebar">
+      <div class="logo">
+        <img src="/app/static/imagens/logo.png" alt="Logo Darktune" />
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+          <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
+          <li><a href="#">Lista de Músicas</a></li>
+          <li><a href="#">Cadastro de Músicas</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="/app/templates/index.html">Home</a></li>
-        <li><a href="/app/templates/contato.html">Contato</a></li>
-        <li><a href="#music-list">Lista de Músicas</a></li>
-        <li><a href="#music-upload">Cadastro de Músicas</a></li>
-      </ul>
-    </nav>
-  </div>
 
-  <!-- Conteúdo principal da página -->
-  <div class="container">
-    <div class="contact-content">
-        <form action="/enviar-mensagem" method="post">
-            <input type="text" name="nome" placeholder="Digite seu nome" required>
-            <input type="email" name="email" placeholder="Digite seu email" required>
-            <textarea name="mensagem" placeholder="Deixe sua mensagem" rows="5" required></textarea>
-            <input type="submit" value="Enviar">
+    <!-- Conteúdo principal da página -->
+    <div class="container">
+      <div class="contact-content">
+        <form action="{{url_for('contatos.criar_contato')}}" method="post">
+          <textarea
+            name="mensagem"
+            placeholder="Deixe sua mensagem"
+            rows="5"
+            required
+          ></textarea>
+          <input type="submit" value="Enviar" />
         </form>
         <div class="contact-info">
-            <p>Outros meios de comunicação:</p>
-            <p>Email: <a href="mailto:DarkTukeContato@email.com" style="color: #c0c0c0;">DarkTuneContato@email.com</a></p>
-            <div class="social-icons">
-                <img src="/app/static/imagens/x.png" alt="X">
-                <img src="/app/static/imagens/insta.png" alt="Instagram">
-                <img src="/app/static/imagens/face.png" alt="Facebook">
-            </div>
+          <p>Outros meios de comunicação:</p>
+          <p>
+            Email:
+            <a href="mailto:DarkTukeContato@email.com" style="color: #c0c0c0"
+              >DarkTuneContato@email.com</a
+            >
+          </p>
+          <div class="social-icons">
+            <img src="/app/static/imagens/x.png" alt="X" />
+            <img src="/app/static/imagens/insta.png" alt="Instagram" />
+            <img src="/app/static/imagens/face.png" alt="Facebook" />
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>
