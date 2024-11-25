@@ -7,13 +7,3 @@ __pycache__/
 .env
 
 .flaskenv
-
-!instance/
-
-instance/*
-
-!app/static/uploads/imagens/
-!app/static/uploads/audios/
-
-app/static/uploads/imagens/*
-app/static/uploads/audios/*

@@ -28,14 +28,20 @@ class MusicaController:
 
         try:
             caminho_imagem = os.path.join(
-                app.config["UPLOAD_IMAGES_FOLDER"], imagem.filename
+                app.config["UPLOAD_IMAGES_FOLDER"], secure_filename(imagem.filename)
+            ).replace("\\", "/")
+            
+            caminho_audio = os.path.join(
+                app.config["UPLOAD_AUDIOS_FOLDER"], secure_filename(musica.filename)
             ).replace("\\", "/")
 
             nova_musica = MusicasModel(
                 nome_musica=nome_musica.lower(),
                 url_imagem=caminho_imagem,
+                url_audio = caminho_audio,
                 id_usuario=1,
             )
+            
             app.session.add(nova_musica)
             app.session.commit()
 
@@ -59,15 +65,8 @@ class MusicaController:
 
             app.session.commit()
 
-            imagem_path = os.path.join(
-                app.config["UPLOAD_IMAGES_FOLDER"], secure_filename(imagem.filename)
-            )
-            audio_path = os.path.join(
-                app.config["UPLOAD_AUDIOS_FOLDER"], secure_filename(musica.filename)
-            )
-
-            imagem.save(imagem_path)
-            musica.save(audio_path)
+            imagem.save(caminho_imagem)
+            musica.save(caminho_audio)
 
             """ flash("Música cadastrada com sucesso") 
             return redirect(url_for("paginas.cadastro_musica")) """
@@ -114,8 +113,25 @@ class MusicaController:
     def atualizar_musica(id: int):
         pass
 
-    def deletar_musica(id: int):
-        pass
+    def deletar_musica(self, id: int):
+        try:
+            musica = (
+                app.session.query(MusicasModel)
+                .filter(
+                    MusicasModel.id_musica == id
+                )
+                .first()
+            )
+            
+            app.session.delete(musica)
+            app.session.commit()
+            
+            """ flash("Musica deletada.")
+            return redirect(url_for("paginas.home")) """
+            return "Música deletada"
+            
+        except Exception as erro:
+            raise erro
 
     def encontrar_categorias(self, categorias: list[str]):
         categorias_encontradas = []

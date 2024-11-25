@@ -14,13 +14,13 @@ def cadastro_musica():
 def editar_musica():
     pass
 
-@musica_bp.route('/excluir', methods=['POST'])
-def excluir_musica():
-    pass
+@musica_bp.route('/excluir/<int:id>', methods=['GET'])
+def excluir_musica(id):
+    return MusicaController().deletar_musica(id)
 
 @musica_bp.route('/curtir/<int:id>', methods=['GET'])
 def curtir_musica(id):
-    pass
+    return MusicaController().deletar_musica(id)
 
 @musica_bp.route('/descurtir/<int:id>', methods=['GET'])
 def descurtir_musica(id):
