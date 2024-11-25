@@ -52,7 +52,7 @@ class UsuarioController:
                 senhas_combinam = bcrypt.checkpw(senha.encode("utf-8"), usuario.senha)
                 if senhas_combinam:
                     session["usuario"] = usuario.id_usuario
-                    session["nivel"] = usuario.id_usuario
+                    session["nivel"] = usuario.nivel
                     flash("Login efetuado com sucesso")
                     return redirect("/")
                 else:
