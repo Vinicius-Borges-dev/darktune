@@ -11,7 +11,7 @@ class ContatosModel(Base):
     id_contato = Column(Integer, primary_key=True)
     mensagem = Column(Text, nullable=False)
     
-    contatos_usuarios = relationship('ContatosUsuariosModel')
+    contatos_usuarios = relationship('ContatosUsuariosModel', cascade="all, delete-orphan")
 
     def __init__(self, mensagem: str) -> None:
         self.mensagem = mensagem
