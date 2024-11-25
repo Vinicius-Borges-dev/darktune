@@ -54,7 +54,7 @@ class UsuarioController:
                     session["usuario"] = usuario.id_usuario
                     session["nivel"] = usuario.nivel
                     flash("Login efetuado com sucesso")
-                    return redirect("/")
+                    return redirect(url_for("paginas.home"))
                 else:
                     flash("Email ou senha incorreto")
                     return redirect("/")

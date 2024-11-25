@@ -113,9 +113,9 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 90px; /* Espaço à esquerda */
-  font-size: 1.1em; /* Tamanho da fonte */
-  text-align: left; /* Centralizado à esquerda */
+  padding-left: 90px;
+  font-size: 1.1em;
+  text-align: left;
   margin-top: -60px;
 }
 
@@ -124,7 +124,49 @@ input[type="submit"]:hover {
 }
 
 .social-icons img {
-  width: 40px;
+  width: 30px;
   margin: 0 10px;
   cursor: pointer;
+}
+/* Estilo do botão e dropdown */
+.messages-dropdown {
+  width: 90%;
+  max-width: 850px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.dropdown-btn {
+  background-color: #666;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 30px;
+  transition: background-color 0.3s;
+  border-radius: 10px;
+}
+
+.dropdown-btn:hover {
+  background-color: #444;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  padding: 10px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.messages-dropdown.show .dropdown-content {
+  display: block;
+}
+
+.dropdown-content p {
+  margin: 10px 0;
+  color: #c0c0c0;
 }
