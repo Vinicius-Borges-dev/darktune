@@ -29,7 +29,7 @@ class ContatoController:
             app.session.commit()
 
             flash("Contato criado com sucesso")
-            redirect(url_for("paginas.contato"))
+            return redirect(url_for("paginas.contato"))
 
         except Exception as erro:
             app.session.rollback()
@@ -96,11 +96,8 @@ class ContatoController:
             redirect()
 
     def buscar_contatos(self):
-        nivel = session["nivel"]
-        if nivel == "admin":
-            return self.todos_os_contatos()
-        else:
-            return self.meus_contatos(session["usuario"])
+        
+        return self.meus_contatos(session["usuario"])
 
     def atualizar_contato(self, id: int):
         mensagem = request.form.get("mensagem")
@@ -117,23 +114,23 @@ class ContatoController:
                     UsuariosModel.id_usuario == ContatosUsuariosModel.fk_id_usuario,
                 )
                 .filter(
-                    UsuariosModel.id_usuario == session['usuario'],
-                    ContatosModel.id_contato == id
+                    UsuariosModel.id_usuario == session["usuario"],
+                    ContatosModel.id_contato == id,
                 )
                 .first()
             )
-            
+
             meu_contato.mensagem = mensagem
-            
+
             app.session.commit()
             flash("Contato atualizado.")
             return redirect(url_for("paginas.contato"))
-            
+
         except Exception as erro:
             flash(str(erro))
             redirect(url_for("paginas.contato"))
-            
-    def buscar_dados_de_contato(id:int):
+
+    def buscar_dados_de_contato(id: int):
         try:
             contato = (
                 app.session.query(ContatosModel)
@@ -146,16 +143,16 @@ class ContatoController:
                     UsuariosModel.id_usuario == ContatosUsuariosModel.fk_id_usuario,
                 )
                 .filter(
-                    UsuariosModel.id_usuario == session['usuario'],
-                    ContatosModel.id_contato == id
+                    UsuariosModel.id_usuario == session["usuario"],
+                    ContatosModel.id_contato == id,
                 )
                 .first()
             )
-            
+
             dados = contato.to_dict()
-            
+
             return dados
-        
+
         except Exception as erro:
             flash(str(erro))
             # return redirect(url_for("paginas.perfil"))
@@ -167,17 +164,15 @@ class ContatoController:
                 app.session.query(ContatosModel)
                 .join(
                     ContatosUsuariosModel,
-                    ContatosUsuariosModel.fk_id_contato == ContatosModel.id_contato
+                    ContatosUsuariosModel.fk_id_contato == ContatosModel.id_contato,
                 )
-                .filter(
-                    ContatosModel.id_contato == id
-                )
+                .filter(ContatosModel.id_contato == id)
                 .first()
             )
-            
+
             app.session.delete(contato)
             app.session.commit()
-            
+
         except Exception as erro:
             app.session.rollback()
             flash(str(erro))
