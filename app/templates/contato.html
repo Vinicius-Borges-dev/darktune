@@ -4,54 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/contato/contato.css')}}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/contato/contato.css')}}"
+    />
+  </head>
+  <body>
     <!-- Barra lateral com links de navegação -->
-  <div class="sidebar">
-    <div class="logo">
-      <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
+    <div class="sidebar">
+      <div class="logo">
+        <img
+          src="{{url_for('static', filename='imagens/logo.png')}}"
+          alt="Logo Darktune"
+        />
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+          <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
+          <li><a href="#music-list">Lista de Músicas</a></li>
+          <li><a href="#music-upload">Cadastro de Músicas</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="{{url_for('paginas.home')}}">Home</a></li>
-        <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
-        <li><a href="#music-list">Lista de Músicas</a></li>
-        <li><a href="#music-upload">Cadastro de Músicas</a></li>
-      </ul>
-    </nav>
-  </div>
 
-  <!-- Conteúdo principal da página -->
-  <div class="container">
-    <div class="contact-content">
+    <!-- Conteúdo principal da página -->
+    <div class="container">
+      <div class="contact-content">
         <form action="/enviar-mensagem" method="post">
-            <textarea name="mensagem" placeholder="Deixe sua mensagem" rows="5" required></textarea>
-            <input type="submit" value="Enviar">
+          <textarea
+            name="mensagem"
+            placeholder="Deixe sua mensagem"
+            rows="5"
+            required
+          ></textarea>
+          <input type="submit" value="Enviar" />
         </form>
         <div class="contact-info">
-            <p>Outros meios de comunicação:</p>
-            <p>Email: <a href="mailto:DarkTukeContato@email.com" style="color: #c0c0c0;">DarkTuneContato@email.com</a></p>
-            <div class="social-icons">
-                <img src="{{url_for('static', filename='imagens/x.png')}}" alt="X">
-                <img src="{{url_for('static', filename='imagens/insta.png')}}" alt="Instagram">
-                <img src="{{url_for('static', filename='imagens/face.png')}}" alt="Facebook">
-            </div>
+          <p>Outros meios de comunicação:</p>
+          <p>
+            Email:
+            <a href="mailto:DarkTukeContato@email.com" style="color: #c0c0c0"
+              >DarkTuneContato@email.com</a
+            >
+          </p>
+          <div class="social-icons">
+            <img
+              src="{{url_for('static', filename='imagens/x.png')}}"
+              alt="X"
+            />
+            <img
+              src="{{url_for('static', filename='imagens/insta.png')}}"
+              alt="Instagram"
+            />
+            <img
+              src="{{url_for('static', filename='imagens/face.png')}}"
+              alt="Facebook"
+            />
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<div class="messages-dropdown">
-  <button class="dropdown-btn">mensagens</button>
-  <div class="dropdown-content">
-      <p>Mensagem 1: ...</p>
-      <p>Mensagem 2: ...</p>
-      <p>Mensagem 3: ...</p>
-  </div>
-</div>
+    <div class="messages-dropdown">
+      <button class="dropdown-btn">mensagens</button>
+      <div class="dropdown-content">
+        {% for contato in contatos %}
+          <p>{{contato['mensagem']}}</p>
+        {% endfor %}
+      </div>
+    </div>
 
-
-<script src="{{url_for('static', filename='js/contato/contato.js')}}"></script>
-
-</body>
+    <script src="{{url_for('static', filename='js/contato/contato.js')}}"></script>
+  </body>
 </html>

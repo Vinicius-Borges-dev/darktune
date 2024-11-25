@@ -13,7 +13,8 @@ def home():
 @paginas_bp.route('/contato')
 @UsuarioMiddleware.verificar_login
 def contato():
-    return render_template('contato.html')
+    dados_contatos = ContatoController().buscar_contatos()
+    return render_template('contato.html', contatos=dados_contatos)
 
 @paginas_bp.route('/musicas')
 def musicas():
@@ -29,10 +30,8 @@ def musica(id):
 def conta():
     # (Usuário) Buscar as músicas curtidas pelo usuário
     # Buscar os contatos do(s) usuario(s)
-    dados_contatos = ContatoController().buscar_contatos()
-    return dados_contatos
     # (Admin) Buscar as músicas adicionadas
-    # return render_template('conta.html')
+    return render_template('conta.html')
 
 @paginas_bp.route('/cadastro/musica')
 @UsuarioMiddleware.verificar_login

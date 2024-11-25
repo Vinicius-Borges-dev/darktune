@@ -96,7 +96,6 @@ class ContatoController:
             redirect()
 
     def buscar_contatos(self):
-        
         return self.meus_contatos(session["usuario"])
 
     def atualizar_contato(self, id: int):
