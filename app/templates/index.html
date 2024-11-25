@@ -84,14 +84,18 @@
     <!-- Galeria de música -->
     <div class="music-gallery">
         <div class="music-row">
-          <div class="music-card">
-            <img src="/app/static/imagens/img6.jpeg" alt="Imagem da música">
-            <div class="music-info">
-              <p class="music-name">Nome da música</p>
-              <p class="artist-name">Artista</p>
-              <button class="control-button">❚❚</button>
+          {% for musica in musicas %}
+            <div class="music-card">
+              <img src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="Imagem da música: {{musica['nome']}}">
+              <div class="music-info">
+                <p class="music-name">{{musica['nome']}}</p>
+                <p class="artist-name">{{musica['cantores'] | join(', ')}}</p>
+                <button class="control-button">
+                  <a href="#">❚❚</a>
+                </button>
+              </div>
             </div>
-          </div>
+          {% endfor %}
     </div>
   </div>
 </body>
