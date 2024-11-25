@@ -18,16 +18,12 @@ def editar_musica():
 def excluir_musica():
     pass
 
-@musica_bp.route('/curtir', methods=['POST'])
-def curtir_musica():
+@musica_bp.route('/curtir/<int:id>', methods=['GET'])
+def curtir_musica(id):
     pass
 
-@musica_bp.route('/descurtir', methods=['POST'])
-def descurtir_musica():
-    pass
-
-@musica_bp.route('/buscar', methods=['POST'])
-def buscar_musica():
+@musica_bp.route('/descurtir/<int:id>', methods=['GET'])
+def descurtir_musica(id):
     pass
 
 @musica_bp.route('/listar', methods=['GET'])
