@@ -11,12 +11,10 @@ def home():
 
 @paginas_bp.route('/contato')
 def contato():
-    dados = ContatoController().buscar_contatos()
     return render_template('contato.html')
 
 @paginas_bp.route('/musicas')
 def musicas():
-    # Listar todas as músicas
     return render_template('index.html')
 
 @paginas_bp.route('/musicas/<int:id>')
