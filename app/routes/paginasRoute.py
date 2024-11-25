@@ -26,7 +26,7 @@ def musica(id):
 def conta():
     # (Usuário) Buscar as músicas curtidas pelo usuário
     # Buscar os contatos do(s) usuario(s)
-    dados_contatos = ContatoController().buscar_contatos()
+    # dados_contatos = ContatoController().buscar_contatos()
     # (Admin) Buscar as músicas adicionadas
     return render_template('conta.html')
 
