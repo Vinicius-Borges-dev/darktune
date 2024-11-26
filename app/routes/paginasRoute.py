@@ -2,6 +2,8 @@ from flask import Blueprint, render_template
 from app.controllers.MusicaController import MusicaController
 from app.controllers.ContatoController import ContatoController
 from app.middlewares.UsuarioMiddleware import UsuarioMiddleware
+from app.controllers.UsuarioController import UsuarioController
+from app.controllers.CurtidaController import CurtidaController
 
 paginas_bp = Blueprint("paginas", __name__)
 
@@ -18,20 +20,25 @@ def contato():
 
 @paginas_bp.route('/musicas')
 def musicas():
-    return render_template('index.html')
+    musicas = MusicaController().capturar_todas_as_musicas()
+    return render_template('musicas.html', musicas=musicas)
 
-@paginas_bp.route('/musicas/<int:id>')
+@paginas_bp.route('/musica/<int:id>')
 def musica(id):
     # Buscar a música pelo id
-    return render_template('player.html')
+    musica = None
+    return render_template('player.html', musica=musica)
 
 @paginas_bp.route('/conta')
 @UsuarioMiddleware.verificar_login
 def conta():
-    # (Usuário) Buscar as músicas curtidas pelo usuário
-    # Buscar os contatos do(s) usuario(s)
-    # (Admin) Buscar as músicas adicionadas
-    return render_template('conta.html')
+    dados_usuario = UsuarioController().capturar_dados_do_usuario()
+
+    curtidas = CurtidaController().buscar_minhas_curtidas()
+
+    musicas_adicionadas = None
+
+    return render_template('conta.html', dados=dados_usuario, curtidas=curtidas, musicas_adicionadas=musicas_adicionadas)
 
 @paginas_bp.route('/cadastro/musica')
 @UsuarioMiddleware.verificar_login

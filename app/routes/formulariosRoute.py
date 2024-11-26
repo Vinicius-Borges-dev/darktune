@@ -14,8 +14,3 @@ def form_editar_contato(id):
 def form_editar_musica(id):
     dados = None
     return render_template("editar_musica.html")
-    
-@formulario_bp.route("/editar/usuario/<int:id>",  methods=["GET"])
-def form_editar_usuario(id):
-    dados = None
-    return render_template("editar_usuario.html")

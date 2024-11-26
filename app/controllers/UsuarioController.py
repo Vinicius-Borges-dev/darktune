@@ -13,7 +13,7 @@ import bcrypt
 
 class UsuarioController:
 
-    def criar_novo_usuario():
+    def criar_novo_usuario(self):
         nome = str(request.form.get("nome"))
         email = str(request.form.get("email"))
         senha = str(request.form.get("senha"))
@@ -38,7 +38,7 @@ class UsuarioController:
             flash(str(erro))
             redirect("/")
 
-    def logar():
+    def logar(self):
         email = request.form.get("email")
         senha = request.form.get("senha")
 
@@ -63,7 +63,7 @@ class UsuarioController:
             flash(str(erro))
             return redirect("/")
 
-    def deslogar():
+    def deslogar(self):
         session.clear()
         return redirect("/")
 
@@ -87,7 +87,7 @@ class UsuarioController:
             flash(str(erro))
             return redirect()
 
-    def deletar_conta():
+    def deletar_conta(self):
         try:
             id_usuario = session["usuario"]
 
@@ -105,7 +105,7 @@ class UsuarioController:
             flash(str(erro))
             redirect()
 
-    def capturar_dados_do_usuario():
+    def capturar_dados_do_usuario(self):
         try:
             id_usuario = session["usuario"]
 
@@ -114,11 +114,11 @@ class UsuarioController:
                 .filter_by(id_usuario=id_usuario)
                 .first()
             )
+            
+            usuario = usuario.to_dict()
 
-            return render_template()
+            return usuario
         
         except Exception as erro:
-            app.session.rollback()
             flash(str(erro))
             redirect()
-    
