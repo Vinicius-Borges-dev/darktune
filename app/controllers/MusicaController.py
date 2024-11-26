@@ -70,48 +70,253 @@ class MusicaController:
 
             """ flash("Música cadastrada com sucesso") 
             return redirect(url_for("paginas.cadastro_musica")) """
+
             return "Deu certo"
 
         except Exception as erro:
             raise erro
 
-    def capturar_todas_as_musicas():
-        pass
+    def capturar_todas_as_musicas(self):
+        try:
+            musicas = app.session.query(MusicasModel).all()
+            
+            if not musicas:
+                return "Nenhuma música encontrada."
+            
+            lista_musicas = [musica.to_dict() for musica in musicas]
+            for musica in lista_musicas:
+                nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .all()
+                )
+
+                musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+                
+            return lista_musicas
+        
+        except Exception as erro:
+            raise erro
 
     def capturar_musicas_aleatorias_para_exibicao(self):
-        musicas = app.session.query(MusicasModel).all()
-        lista_musicas = [musica.to_dict() for musica in musicas]
-        for musica in lista_musicas:
-            nome_cantores = (
-                app.session.query(CantoresModel.nome_cantor)
+        try:
+            musicas = app.session.query(MusicasModel).all()
+            lista_musicas = [musica.to_dict() for musica in musicas]
+            for musica in lista_musicas:
+                nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .limit(6)
+                    .all()
+                )
+
+                musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+                
+            return lista_musicas
+        except Exception as erro:
+            raise erro
+
+    def capturar_musicas_por_nome(nome:str):
+        try:
+            musicas = app.session.query(MusicasModel).filter(MusicasModel.nome_musica.like(nome)).all()
+            
+            if not musicas:
+                return "Nenhuma música encontrada com esse nome."
+            
+            lista_musicas = [musica.to_dict() for musica in musicas]
+            for musica in lista_musicas:
+                nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .all()
+                )
+
+                musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+                
+            return lista_musicas
+            
+        except Exception as erro:
+            raise erro
+
+    def capturar_musicas_por_cantor(cantor:str):
+        try:
+            musicas = (
+                app.session.query(MusicasModel)
                 .join(
                     CantoresMusicasModel,
-                    CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    CantoresMusicasModel.fk_id_musica == MusicasModel.id_musica
+                )
+                .join(
+                    CantoresModel,
+                    CantoresModel.id_cantor == CantoresMusicasModel.fk_id_cantor
+                )
+                .filter(
+                    CantoresModel.nome_cantor.like(cantor)
+                )
+                .all()
+            )
+            
+            if not musicas:
+                return "Nenhum cantor encontrado"
+            
+            lista_musicas = [musica.to_dict() for musica in musicas]
+            for musica in lista_musicas:
+                nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .all()
+                )
+
+                musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+                
+            return lista_musicas
+            
+        except Exception as erro:
+            raise erro
+
+    def capturar_musicas_por_categoria(categoria:str):
+        try:
+            musicas = (
+                app.session.query(MusicasModel)
+                .join(
+                    MusicasCategoriasModel,
+                    MusicasCategoriasModel.fk_id_musica == MusicasModel.id_musica
+                )
+                .join(
+                    CategoriasModel,
+                    CategoriasModel.id_categoria == MusicasCategoriasModel.fk_id_categoria
+                )
+                .filter(
+                    CategoriasModel.nome_categoria.like(categoria)
+                )
+                .all()
+            )
+            
+            if not musicas:
+                return "Nenhuma música encontrada com essa categoria."
+            
+            lista_musicas = [musica.to_dict() for musica in musicas]
+            for musica in lista_musicas:
+                nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .all()
+                )
+
+                musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
+                
+            return lista_musicas
+        
+        except Exception as erro:
+            raise erro
+
+    def buscar_dados_da_musica(self, id: int):
+        try:
+            musica = app.session.query(MusicasModel).filter(MusicasModel.id_musica==id).first()
+            
+            if not musica:
+                return "Nenhuma música encontrada."
+            
+            musica = musica.to_dict()
+            print(musica)
+            
+            nome_cantores = (
+                    app.session.query(CantoresModel.nome_cantor)
+                    .join(
+                        CantoresMusicasModel,
+                        CantoresMusicasModel.fk_id_cantor == CantoresModel.id_cantor,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    )
+                    .filter(MusicasModel.id_musica == musica["id"])
+                    .all()
+                )
+                
+            nome_categorias = (
+                app.session.query(CategoriasModel.nome_categoria)
+                .join(
+                    MusicasCategoriasModel,
+                    MusicasCategoriasModel.fk_id_categoria == CategoriasModel.id_categoria
                 )
                 .join(
                     MusicasModel,
-                    MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
+                    MusicasModel.id_musica == MusicasCategoriasModel.fk_id_musica
                 )
-                .filter(MusicasModel.id_musica == musica["id"])
-                .limit(6)
+                .filter(MusicasModel.id_musica == musica['id'])
                 .all()
             )
 
             musica["cantores"] = [cantor[0] for cantor in nome_cantores]
+            musica["categorias"] = [categoria[0] for categoria in nome_categorias]
             musica["url_imagem"] = musica["url_imagem"].split('/')[-1]
-        return lista_musicas
-
-    def capturar_musicas_por_nome():
-        pass
-
-    def capturar_musicas_por_cantor():
-        pass
-
-    def capturar_musicas_por_categoria():
-        pass
-
-    def atualizar_musica(id: int):
-        pass
+            musica["url_audio"] = musica["url_audio"].split('/')[-1]
+            
+            return musica
+        
+        except Exception as erro:
+            raise erro
+    
+    def atualizar_musica(self,id:int):
+        nome_musica = str(request.form.get("nome_musica"))
+        cantor = str(request.form.get("cantor"))
+        cantores = [cantor.strip() for cantor in cantor.split(",")]
+        categoria = str(request.form.get("categoria"))
+        categorias = [categoria.strip() for categoria in categoria.split(",")]
+        imagem = request.files.get("imagem")
+        musica = request.files.get("musica")
+        try:
+            musica = self.buscar_dados_da_musica(id)
+            
+            
+        except Exception as erro:
+            raise erro
 
     def deletar_musica(self, id: int):
         try:
@@ -123,15 +328,21 @@ class MusicaController:
                 .first()
             )
             
+            imagem = musica.url_imagem
+            audio = musica.url_audio
+            
+            os.remove(imagem)
+            os.remove(audio)
+            
             app.session.delete(musica)
             app.session.commit()
             
-            """ flash("Musica deletada.")
-            return redirect(url_for("paginas.home")) """
-            return "Música deletada"
+            flash("Musica deletada.")
+            return redirect(url_for("paginas.home"))
             
         except Exception as erro:
             raise erro
+
 
     def encontrar_categorias(self, categorias: list[str]):
         categorias_encontradas = []
