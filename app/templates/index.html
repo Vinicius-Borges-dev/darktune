@@ -16,7 +16,7 @@
       <ul>
         <li><a href="{{url_for('paginas.home')}}">Home</a></li>
         <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
-        <li><a href="#music-list">Lista de Músicas</a></li>
+        <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
         <li><a href="#music-upload">Cadastro de Músicas</a></li>
       </ul>
     </nav>
@@ -83,22 +83,38 @@
 
     <!-- Galeria de música -->
     <div class="music-gallery">
-        <div class="music-row">
-          {% for musica in musicas %}
-            <div class="music-card">
-              <img src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="Imagem da música: {{musica['nome']}}">
-              <div class="music-info">
-                <p class="music-name">{{musica['nome']}}</p>
-                <p class="artist-name">{{musica['cantores'] | join(', ')}}</p>
-                <button class="control-button">
-                  <a href="#">❚❚</a>
-                </button>
-              </div>
+      <!-- Primeira linha de cards -->
+      <div class="music-row">
+        {% for musica in musicas[:3] %}
+          <div class="music-card">
+            <img src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="Imagem da música: {{musica['nome']}}">
+            <div class="music-info">
+              <p class="music-name">{{musica['nome']}}</p>
+              <p class="artist-name">{{musica['cantores'] | join(', ')}}</p>
+              <button class="control-button">
+                <a href="#">▶</a>
+              </button>
             </div>
-          {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Segunda linha de cards -->
+      <div class="music-row">
+        {% for musica in musicas[3:] %}
+          <div class="music-card">
+            <img src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="Imagem da música: {{musica['nome']}}">
+            <div class="music-info">
+              <p class="music-name">{{musica['nome']}}</p>
+              <p class="artist-name">{{musica['cantores'] | join(', ')}}</p>
+              <button class="control-button">
+                <a href="#">▶</a>
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </body>
-<!-- Link para o arquivo JavaScript da página -->
 <script src="{{url_for('static', filename='js/home/home.js')}}"></script>
 </html>
