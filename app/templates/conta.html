@@ -26,7 +26,7 @@
                 <img src="{{url_for('static', filename='imagens/perfil.png')}}" alt="Imagem do usuário" class="profile-img">
                 <button class="edit-button" onclick="showEditSection()">Editar Perfil</button>
             </div>
-            <h1>Nome do Usuário</h1>
+            <h1>{{dados['nome']}}</h1>
             <h2>Músicas Curtidas</h2>
             <ul class="songs-list">
                 <li>
@@ -40,19 +40,8 @@
                         <button class="play-button">▶</button>
                     </div>
                 </li>
-                <li>
-                    <img src="/app/static/imagens/img1.webp" alt="Imagem do álbum" class="album-img">
-                    <div class="song-info">
-                        <span class="song-title">Música 2</span>
-                        <span class="song-artist">Artista 2</span>
-                    </div>
-                    <div class="buttons">
-                        <button class="heart-button">♡</button>
-                        <button class="play-button">▶</button>
-                    </div>
-                </li>
-                <!-- Adicione mais músicas aqui -->
             </ul>
+            <h2>Todas as músicas</h2>
         </div>
         <div id="edit-section" class="section" style="display:none;">
             <button class="back-button" onclick="showProfileSection()">&larr; Voltar ao Perfil</button>
@@ -62,15 +51,15 @@
             </div>
             <div class="form-group">
                 <label for="user-name">Nome</label>
-                <input type="text" id="user-name" value="Nome do Usuário">
+                <input type="text" id="user-name" value="{{dados['nome']}}">
             </div>
             <div class="form-group">
                 <label for="user-email">Email</label>
-                <input type="email" id="user-email" value="usuario@exemplo.com">
+                <input type="email" id="user-email" value="{{dados['email']}}">
             </div>
             <div class="form-group">
                 <label for="user-password">Senha</label>
-                <input type="password" id="user-password">
+                <input type="password" id="user-password" value="{{dados['senha']}}">
             </div>
         </div>
     </div>
