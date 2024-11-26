@@ -121,6 +121,7 @@ input[type="submit"]:hover {
 
 .social-icons {
   margin-top: 20px; /* Espaço superior */
+  margin-left: 50px;
 }
 
 .social-icons img {
@@ -160,6 +161,7 @@ input[type="submit"]:hover {
   padding: 10px;
   text-align: left;
   margin-top: 10px;
+  border-radius: 15px;
 }
 
 .messages-dropdown.show .dropdown-content {
