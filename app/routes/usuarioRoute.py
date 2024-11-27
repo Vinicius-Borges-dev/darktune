@@ -17,14 +17,4 @@ def logout_usuario():
 
 @usuario_bp.route("/cadastro", methods=["POST"])
 def cadastro_usuario():
-    return UsuarioController.criar_novo_usuario()
-
-
-@usuario_bp.route("/perfil/editar", methods=["POST"])
-def editar_perfil_usuario():
-    pass
-
-
-@usuario_bp.route("/perfil/excluir")
-def excluir_perfil_usuario():
-    pass
+    return UsuarioController().criar_novo_usuario()
