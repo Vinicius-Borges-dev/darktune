@@ -27,7 +27,11 @@ class UsuarioController:
                 salt = bcrypt.gensalt()
                 senha_hash = bcrypt.hashpw(senha.encode("utf-8"), salt)
                 novo_usuario = UsuariosModel(
-                    nome=nome, email=email, senha=senha_hash, nivel="usuario"
+                    nome=nome, 
+                    email=email, 
+                    senha=senha_hash, 
+                    nivel="usuario",
+                
                 )
                 app.session.add(novo_usuario)
                 app.session.commit()
@@ -120,5 +124,4 @@ class UsuarioController:
             return usuario
         
         except Exception as erro:
-            flash(str(erro))
-            redirect()
+            raise erro

@@ -11,16 +11,18 @@ class UsuariosModel(Base):
     email = Column(String(100), nullable=False)
     senha = Column(String(255), nullable=False)
     nivel = Column(String(20), nullable=False)
+    url_foto_perfil = Column(String(255), nullable=True)
     
     curtida = relationship('CurtidasModel', back_populates='usuario')
     musicas = relationship('MusicasModel', back_populates='usuario')
     contatos_usuarios = relationship('ContatosUsuariosModel')
     
-    def __init__(self, nome:str, email:str, senha:str, nivel:str)->None:
+    def __init__(self, nome:str, email:str, senha:str, nivel:str, url_perfil:str)->None:
         self.nome = nome
         self.email = email
         self.senha = senha
         self.nivel = nivel
+        self.url_foto_perfil = url_perfil
     
     def __repr__(self)->str:
         return f"<Usuário {self.id_usuario}>"
