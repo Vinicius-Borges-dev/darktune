@@ -25,7 +25,7 @@ def curtir_musica(id):
 
 @musica_bp.route('/descurtir/<int:id>', methods=['GET'])
 def descurtir_musica(id):
-    pass
+    return CurtidaController().descurtir(id)
 
 @musica_bp.route('/listar', methods=['GET'])
 def listar_musicas():
