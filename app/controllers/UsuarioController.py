@@ -83,12 +83,12 @@ class UsuarioController:
 
             app.session.commit()
             flash("Usuário atualizado com sucesso")
-            return redirect()
+            return redirect(url_for('paginas.conta'))
 
         except Exception as erro:
             app.session.rollback()
             flash(str(erro))
-            return redirect()
+            return redirect(url_for('paginas.conta'))
 
     def deletar_conta(self):
         try:
