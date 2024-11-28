@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import request, redirect, url_for, current_app as app
 from app.models import MusicasModel, CantoresMusicasModel, CantoresModel
+import filetype
 
 
 class MusicaMiddleware:
@@ -34,5 +35,36 @@ class MusicaMiddleware:
                 # flash("Música já cadastrada")
                 # return redirect(url_for("paginas.cadastro_musica"))
                 return "Música ja cadastrada"
+            return f(*args, **kwargs)
+        return wrapper
+
+
+    @staticmethod
+    def checar_formato_imagem(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            imagem = request.files.get("imagem")
+            if imagem:
+                tipo_imagem = filetype.guess(imagem.read())
+                imagem.seek(0)
+                if tipo_imagem is None or tipo_imagem.mime not in ["image/jpeg", "image/png", "image/gif", "image/jpg"]:
+                    # flash("Imagem não está em um formato valido")
+                    # return redirect(url_for("paginas.cadastro_musica"))
+                    return "Formato de imagem não suportado"
+            return f(*args, **kwargs)
+        return wrapper
+    
+    @staticmethod
+    def checar_formato_audio(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            musica = request.files.get("musica")
+            if musica:
+                tipo_arquivo = filetype.guess(musica.read())
+                musica.seek(0)
+                if tipo_arquivo is None or tipo_arquivo.mime not in ["audio/mpeg", "audio/wav", "audio/ogg", "audio/mp3"]:
+                    # flash("Audio não está em um formato valido")
+                    # return redirect(url_for("paginas.cadastro_musica"))
+                    return "Formato de áudio não suportado"
             return f(*args, **kwargs)
         return wrapper
