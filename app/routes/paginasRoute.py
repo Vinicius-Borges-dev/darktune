@@ -36,7 +36,7 @@ def conta():
 
     curtidas = CurtidaController().buscar_minhas_curtidas()
 
-    musicas_adicionadas = None
+    musicas_adicionadas = MusicaController().capturar_todas_as_musicas()
 
     return render_template('conta.html', dados=dados_usuario, curtidas=curtidas, musicas_adicionadas=musicas_adicionadas)
 
