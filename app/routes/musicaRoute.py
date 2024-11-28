@@ -1,6 +1,7 @@
 from flask import Blueprint
 from app.controllers.MusicaController import MusicaController
 from app.middlewares.MusicaMiddleware import MusicaMiddleware
+from app.controllers.CurtidaController import CurtidaController
 
 musica_bp = Blueprint('musicas', __name__)
 
@@ -20,7 +21,7 @@ def excluir_musica(id):
 
 @musica_bp.route('/curtir/<int:id>', methods=['GET'])
 def curtir_musica(id):
-    return MusicaController().deletar_musica(id)
+    return CurtidaController().criar_nova_curtida(id)
 
 @musica_bp.route('/descurtir/<int:id>', methods=['GET'])
 def descurtir_musica(id):
