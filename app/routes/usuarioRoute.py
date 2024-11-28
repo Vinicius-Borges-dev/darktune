@@ -10,7 +10,7 @@ def login_usuario():
 
 
 @usuario_bp.route("/logout")
-def logout_usuario():
+def deslogar_usuario():
     return UsuarioController().deslogar()
 
 
