@@ -27,10 +27,18 @@
     </div>
     <nav>
       <ul>
+        <li>
+          <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
+          {% if session['nome'] %}
+            {{session['nome']}}
+          {% else %}
+            Conta
+          {% endif %}
+        </a>
+      </li>
         <li><a href="{{url_for('paginas.home')}}">Home</a></li>
         <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
         <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
-        <li><a href="#music-upload">Cadastro de Músicas</a></li>
       </ul>
     </nav>
   </div>
@@ -39,7 +47,7 @@
   <div class="main-content">
     <header>
         <input type="text" placeholder="Pesquisar..." class="search-bar">     
-        <a href="{{url_for('paginas.conta')}}" class="user-button">usuario</a>
+        
     </header>
     
     <!-- Seção do carrossel de imagens -->

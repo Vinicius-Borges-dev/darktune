@@ -33,7 +33,6 @@
           <li><a href="{{url_for('paginas.home')}}">Home</a></li>
           <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
           <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
-          <li><a href="#music-upload">Cadastro de Músicas</a></li>
         </ul>
       </nav>
     </div>
@@ -52,67 +51,72 @@
         <h1>{{dados['nome']}}</h1>
         <h2>Músicas Curtidas</h2>
         <ul class="songs-list">
-          {% if curtidas %} 
-            {% for curtida in curtidas%}
-            <li>
-              <img
-                src="{{url_for('static', filename='uploads/imagens/'+curtida['imagem'])}}"
-                alt="Imagem do álbum"
-                class="album-img"
-              />
-              <div class="song-info">
-                <span class="song-title">{{curtida['nome_musica']}}</span>
-                <span class="song-artist"
-                  >{{curtida['cantores'] | join(', ')}}</span
-                >
-              </div>
-              <div class="buttons">
-                <a
-                  class="heart-button"
-                  href="{{url_for('musicas.descurtir_musica', id=curtida['id'])}}"
-                  >♡</a
-                >
-                <a
-                  class="play-button"
-                  href="{{url_for('paginas.musica', id=curtida['musica_id'])}}"
-                  >▶</a
-                >
-              </div>
-            </li>
-            {% endfor %} 
-          {% else %} 
-            <li>
-              <p>Nenhuma música curtida</p>
-            </li>
+          {% if curtidas %} {% for curtida in curtidas%}
+          <li>
+            <img
+              src="{{url_for('static', filename='uploads/imagens/'+curtida['imagem'])}}"
+              alt="Imagem do álbum"
+              class="album-img"
+            />
+            <div class="song-info">
+              <span class="song-title">{{curtida['nome_musica']}}</span>
+              <span class="song-artist"
+                >{{curtida['cantores'] | join(', ')}}</span
+              >
+            </div>
+            <div class="buttons">
+              <a
+                class="heart-button"
+                href="{{url_for('musicas.descurtir_musica', id=curtida['id'])}}"
+                >♡</a
+              >
+              <a
+                class="play-button"
+                href="{{url_for('paginas.musica', id=curtida['musica_id'])}}"
+                >▶</a
+              >
+            </div>
+          </li>
+          {% endfor %} {% else %}
+          <li>
+            <p>Nenhuma música curtida</p>
+          </li>
           {% endif %}
         </ul>
-        <h2>Todas as músicas</h2>
         {% if musicas_adicionadas %}
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Música</th>
-                <th>Cantores</th>
-                <th>Categorias</th>
-                <th>Criador</th>
-                <th colspan="2">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for musica in musicas_adicionadas %}
-                <tr>
-                  <td>{{musica['id']}}</td>
-                  <td><img style="width: 30px; height: 30px; border-radius: 100px;" src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="{{musica['nome']}}">{{musica['nome']}}</td>
-                  <td>{{musica['cantores'] | join(', ')}}</td>
-                  <td></td>
-                  <td>{{musica['id_usuario']}}</td>
-                  <td><a href="#">Editar</a></td>
-                  <td><a href="#">Excluir</a></td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+        <h2>Todas as músicas</h2>
+        <button>Adicionar Música</button>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Música</th>
+              <th>Cantores</th>
+              <th>Categorias</th>
+              <th>Criador</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for musica in musicas_adicionadas %}
+            <tr>
+              <td>{{musica['id']}}</td>
+              <td>
+                <img
+                  style="width: 30px; height: 30px; border-radius: 100px"
+                  src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
+                  alt="{{musica['nome']}}"
+                />{{musica['nome']}}
+              </td>
+              <td>{{musica['cantores'] | join(', ')}}</td>
+              <td></td>
+              <td>{{musica['id_usuario']}}</td>
+              <td><a href="#">Editar</a></td>
+              <td><a href="#">Excluir</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         {% endif %}
       </div>
       <div id="edit-section" class="section" style="display: none">
@@ -135,6 +139,7 @@
           <input type="submit" value="Atualizar" />
         </div>
       </div>
+      <a href="{{url_for('usuarios.deslogar_usuario')}}">Sair</a>
     </div>
 
     <script src="{{url_for('static', filename='js/perfil/perfil.js')}}"></script>
