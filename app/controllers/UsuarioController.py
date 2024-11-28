@@ -56,6 +56,7 @@ class UsuarioController:
                 if senhas_combinam:
                     session["usuario"] = usuario.id_usuario
                     session["nivel"] = usuario.nivel
+                    session["nome"] = usuario.nome
                     flash("Login efetuado com sucesso")
                     return redirect(url_for("paginas.home"))
                 else:
