@@ -21,7 +21,9 @@ class CurtidaController:
                     MusicasModel.nome_musica,
                     CantoresModel.nome_cantor,
                 )
-                .join(MusicasModel, CurtidasModel.fk_id_musica == MusicasModel.id_musica)
+                .join(
+                    MusicasModel, CurtidasModel.fk_id_musica == MusicasModel.id_musica
+                )
                 .join(
                     CantoresMusicasModel,
                     CantoresMusicasModel.fk_id_musica == MusicasModel.id_musica,
@@ -39,19 +41,32 @@ class CurtidaController:
         except Exception as erro:
             raise erro
 
-    def criar_nova_curtida(self, id_musica: int):
+    def criar_nova_curtida(self, musica_id: int):
         try:
-            id_usuario = session["usuario"]
+            usuario_id = session["usuario"]
 
-            nova_curtida = CurtidasModel(
-                id_usuario == id_usuario, id_musica == id_musica
+            curtida_existente = (
+                app.session.query(CurtidasModel)
+                .filter(
+                    CurtidasModel.fk_id_musica == musica_id,
+                    CurtidasModel.fk_id_usuario == usuario_id
+                )
+                .first()
             )
+            
+            if curtida_existente:
+                flash("Música ja foi curtida!")
+                return redirect(url_for("paginas.musicas"))
+            else:
+                nova_curtida = CurtidasModel(
+                    id_usuario=usuario_id,
+                    id_musica=musica_id
+                )
 
-            app.session.add(nova_curtida)
-            app.session.commit()
-
-            flash("Curtida realizada com sucesso!")
-            return redirect(url_for("paginas.musicas"))
+                app.session.add(nova_curtida)
+                app.session.commit()
+                flash("Curtida realizada com sucesso!")
+                return redirect(url_for("paginas.musicas"))
         except Exception as erro:
             raise erro
 
