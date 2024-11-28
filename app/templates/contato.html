@@ -8,8 +8,21 @@
       rel="stylesheet"
       href="{{url_for('static', filename='css/contato/contato.css')}}"
     />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/mensagens.css')}}"
+    />
   </head>
   <body>
+    {% with messages = get_flashed_messages() %} 
+      {% if messages %}
+        <section class="mensagens notificacao">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </section>
+      {% endif %} 
+    {% endwith %}
     <!-- Barra lateral com links de navegação -->
     <div class="sidebar">
       <div class="logo">
@@ -31,7 +44,7 @@
     <!-- Conteúdo principal da página -->
     <div class="container">
       <div class="contact-content">
-        <form action="/enviar-mensagem" method="post">
+        <form action="{{url_for('contatos.criar_contato')}}" method="post">
           <textarea
             name="mensagem"
             placeholder="Deixe sua mensagem"
@@ -76,5 +89,6 @@
     </div>
 
     <script src="{{url_for('static', filename='js/contato/contato.js')}}"></script>
+    <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
   </body>
 </html>

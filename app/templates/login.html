@@ -14,13 +14,15 @@
     />
   </head>
   <body>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <section class="mensagens">
-      {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %}
-    </section>
-    {% endif %} {% endwith %}
+    {% with messages = get_flashed_messages() %} 
+      {% if messages %}
+        <section class="mensagens notificacao">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </section>
+      {% endif %} 
+    {% endwith %}
     <div class="wrapper">
       <img
         src="{{url_for('static', filename='imagens/logo.png')}}"
@@ -87,5 +89,7 @@
         </label>
       </div>
     </div>
+
+    <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
   </body>
 </html>
