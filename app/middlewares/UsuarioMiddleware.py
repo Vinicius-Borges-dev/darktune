@@ -3,20 +3,23 @@ from flask import request, redirect, session, flash
 
 class UsuarioMiddleware:
     
-    def verificar_login(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            usuario_logado = session['usuario']
-            
-            if not usuario_logado:
-                flash("Sessão expirada")
-                return redirect('/')
-            
-            return f(*args, **kwargs)
+    def verificar_login(f): 
+        @wraps(f) 
+        def wrapper(*args, **kwargs): 
+            usuario = session.get('usuario') 
+            print(usuario) 
+            if not usuario: 
+                flash("Sessão expirada") 
+                return redirect('/') 
+            return f(*args, **kwargs) 
         return wrapper
     
     def verificar_permissao_admin(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
-            if not session['nivel']:
-                flash("Você")
+            nivel = session.get('nivel')
+            if nivel != 'admin':
+                flash("Permissão negada")
+                return redirect('/')
+            return f(*args, **kwargs)
+        return wrapper
