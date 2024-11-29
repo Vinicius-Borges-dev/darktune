@@ -29,8 +29,7 @@ def musicas():
 
 @paginas_bp.route("/musica/<int:id>")
 def musica(id):
-    # Buscar a música pelo id
-    musica = None
+    musica = MusicaController().buscar_dados_da_musica(id)
     return render_template("player.html", musica=musica)
 
 

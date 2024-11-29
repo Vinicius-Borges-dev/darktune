@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <titulo>Cadastro de Músicas - Darktune</titulo>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/cadastro_musica.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
+          {% if session['nome'] %}
+            {{session['nome']}}
+          {% else %}
+            Conta
+          {% endif %}
+        </a>
+      </li>
+        <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+        <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
+        <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="main-content">
+    <section id="music-upload">
+      <h1>Edição da Música: {{musica['nome']}}</h1>
+      <form action="{{url_for('musicas.editar_musica', id=musica['id'])}}" method="POST" enctype="multipart/form-data" class="music-upload-form">
+        <div class="form-grupo">
+          <label for="nome-musica">Nome da Música:</label>
+          <input type="text" id="nome-musica" name="nome_musica" value="{{musica['nome']}}" required>
+        </div>
+
+        <div class="form-grupo">
+          <label for="autor">Cantores:</label>
+          <input type="text" id="cantor" name="cantor" value="{{musica['cantores'] | join(', ')}}" required>
+        </div>
+
+
+        <div class="form-grupo">
+          <label for="genero">Categorias:</label>
+          <input type="text" id="categoria" name="categoria" value="{{musica['categorias'] | join(', ')}}" required>
+        </div>
+
+        <div class="form-grupo">
+          <label for="url-imagem">Imagem:</label>
+          <input type="file" id="imagem" name="imagem" value="{{musica['url_imagem']}}" accept="image/*">
+        </div>
+
+        <div class="form-grupo">
+          <label for="arquivo-musica">Música:</label>
+          <input type="file" id="musica" name="musica" accept="audio/*">
+        </div>
+
+        <div class="form-grupo">
+          <button type="submit" class="submit-button">Cadastrar Música</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</body>
+<script src="/app/static/js/home/home.js"></script>
+</html>

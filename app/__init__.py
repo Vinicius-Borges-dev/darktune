@@ -31,6 +31,9 @@ def create_app()->Flask:
     
     from app.routes.contatoRoute import contato_bp
     app.register_blueprint(contato_bp, url_prefix='/contatos')
+    
+    from app.routes.formulariosRoute import formulario_bp
+    app.register_blueprint(formulario_bp, url_prefix='/formularios')
         
     return app
 

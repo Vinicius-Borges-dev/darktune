@@ -92,7 +92,7 @@
         </ul>
         {% if musicas_adicionadas %}
         <h2>Todas as músicas</h2>
-        <button>Adicionar Música</button>
+        <a href="{{url_for('paginas.cadastro_musica')}}">Adicionar Música</a>
         <table>
           <thead>
             <tr>
@@ -118,8 +118,8 @@
               <td>{{musica['cantores'] | join(', ')}}</td>
               <td></td>
               <td>{{musica['id_usuario']}}</td>
-              <td><a href="#">Editar</a></td>
-              <td><a href="#">Excluir</a></td>
+              <td><a href="{{url_for('formularios.form_editar_musica', id=musica['id'])}}">Editar</a></td>
+              <td><a href="{{url_for('musicas.excluir_musica', id=musica['id'])}}">Excluir</a></td>
             </tr>
             {% endfor %}
           </tbody>

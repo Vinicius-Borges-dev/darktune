@@ -12,5 +12,5 @@ def form_editar_contato(id):
 
 @formulario_bp.route("/editar/musica/<int:id>",  methods=["GET"])
 def form_editar_musica(id):
-    dados = None
-    return render_template("editar_musica.html")
+    dados = MusicaController().buscar_dados_da_musica(id)
+    return render_template("edicao_de_musica.html", musica=dados)

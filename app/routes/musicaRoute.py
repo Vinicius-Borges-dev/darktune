@@ -13,10 +13,10 @@ musica_bp = Blueprint('musicas', __name__)
 def cadastro_musica():
     return MusicaController().criar_nova_musica()
 
-@musica_bp.route('/editar', methods=['POST'])
+@musica_bp.route('/editar/<int:id>', methods=['POST'])
 @UsuarioMiddleware.verificar_permissao_admin
-def editar_musica():
-    pass
+def editar_musica(id):
+    return MusicaController().atualizar_musica(id)
 
 @musica_bp.route('/excluir/<int:id>', methods=['GET'])
 @UsuarioMiddleware.verificar_permissao_admin

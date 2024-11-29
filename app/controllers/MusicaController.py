@@ -68,10 +68,8 @@ class MusicaController:
             imagem.save(caminho_imagem)
             musica.save(caminho_audio)
 
-            """ flash("Música cadastrada com sucesso") 
-            return redirect(url_for("paginas.cadastro_musica")) """
-
-            return "Deu certo"
+            flash("Música cadastrada com sucesso") 
+            return redirect(url_for("paginas.cadastro_musica"))
 
         except Exception as erro:
             raise erro
@@ -125,7 +123,7 @@ class MusicaController:
 
     def capturar_musicas_aleatorias_para_exibicao(self):
         try:
-            musicas = app.session.query(MusicasModel).all()
+            musicas = app.session.query(MusicasModel).limit(6)
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
                 nome_cantores = (
@@ -139,7 +137,6 @@ class MusicaController:
                         MusicasModel.id_musica == CantoresMusicasModel.fk_id_musica,
                     )
                     .filter(MusicasModel.id_musica == musica["id"])
-                    .limit(6)
                     .all()
                 )
 
@@ -317,8 +314,6 @@ class MusicaController:
 
             musica["cantores"] = [cantor[0] for cantor in nome_cantores]
             musica["categorias"] = [categoria[0] for categoria in nome_categorias]
-            musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
-            musica["url_audio"] = musica["url_audio"].split("/")[-1]
 
             return musica
 
@@ -333,11 +328,42 @@ class MusicaController:
         categorias = [categoria.strip() for categoria in categoria.split(",")]
         imagem = request.files.get("imagem")
         musica = request.files.get("musica")
+        
         try:
-            musica = self.buscar_dados_da_musica(id)
+            musica_atual = app.session.query(MusicasModel).get(id)
+            if not musica_atual:
+                flash("Música não encontrada")
+                return redirect(url_for("formularios.form_editar_musica", id=id))
+
+            musica_atual.nome_musica = nome_musica.lower()
+
+            if imagem:
+                caminho_imagem_atual = os.path.join(app.config["UPLOAD_IMAGES_FOLDER"], secure_filename(imagem.filename)).replace("\\", "/")
+                if caminho_imagem_atual != musica_atual.url_imagem:
+                    imagem.save(caminho_imagem_atual)
+                    musica_atual.url_imagem = caminho_imagem_atual
+
+            if musica:
+                caminho_audio_atual = os.path.join(app.config["UPLOAD_AUDIOS_FOLDER"], secure_filename(musica.filename)).replace("\\", "/")
+                if caminho_audio_atual != musica_atual.url_audio:
+                    musica.save(caminho_audio_atual)
+                    musica_atual.url_audio = caminho_audio_atual
+
+            categorias_encontradas = self.encontrar_categorias(categorias)
+            musica_atual.categorias = categorias_encontradas
+
+            cantores_encontrados = self.encontrar_cantores(cantores)
+            musica_atual.cantores = cantores_encontrados
+
+            app.session.commit()
+
+            flash("Música atualizada com sucesso")
+            return redirect(url_for("paginas.conta"))
 
         except Exception as erro:
-            raise erro
+            app.session.rollback()
+            flash(f"Erro ao atualizar música: {erro}")
+            return redirect(url_for("formularios.form_editar_musica", id=id))
 
     def deletar_musica(self, id: int):
         try:
@@ -357,7 +383,7 @@ class MusicaController:
             app.session.commit()
 
             flash("Musica deletada.")
-            return redirect(url_for("paginas.home"))
+            return redirect(url_for("paginas.conta"))
 
         except Exception as erro:
             raise erro
