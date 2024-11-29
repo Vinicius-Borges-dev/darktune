@@ -13,5 +13,5 @@ def editar_contato(id):
 
 @contato_bp.route("/deletar/<int:id>", methods=["GET"])
 def deletar_contato(id):
-    pass
+    return ContatoController().deletar_contato(id)
 

@@ -88,9 +88,22 @@
     <div class="messages-dropdown">
       <button class="dropdown-btn">mensagens</button>
       <div class="dropdown-content">
-        {% for contato in contatos %}
-          <p>{{contato['mensagem']}}</p>
-        {% endfor %}
+        <table>
+          <thead>
+            <tr>
+              <th>Mensagem</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for contato in contatos %}
+              <tr>
+                <td>{{contato['mensagem']}}</td>
+                <td><a href="{{url_for('contatos.deletar_contato', id=contato['id'])}}">Excluir mensagem</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
 

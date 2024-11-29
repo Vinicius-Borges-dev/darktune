@@ -156,7 +156,7 @@ class ContatoController:
             flash(str(erro))
             # return redirect(url_for("paginas.perfil"))
 
-    def deletar_contato(id: int):
+    def deletar_contato(self, id: int):
 
         try:
             contato = (
@@ -171,8 +171,10 @@ class ContatoController:
 
             app.session.delete(contato)
             app.session.commit()
+            
+            flash('Contato deletado')
+            return redirect(url_for('paginas.contato'))
 
         except Exception as erro:
             app.session.rollback()
-            flash(str(erro))
-            redirect()
+            raise erro
