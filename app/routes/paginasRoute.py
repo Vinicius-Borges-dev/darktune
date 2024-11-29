@@ -57,4 +57,4 @@ def conta():
 @paginas_bp.route("/cadastro/musica")
 @UsuarioMiddleware.verificar_login
 def cadastro_musica():
-    return render_template("cadastro_musica.html")
+    return render_template("cadastro_de_musicas.html")

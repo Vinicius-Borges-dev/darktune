@@ -12,6 +12,7 @@
       rel="stylesheet"
       href="{{url_for('static', filename='css/mensagens.css')}}"
     />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
   </head>
   <body>
     {% with messages = get_flashed_messages() %} {% if messages %}
@@ -23,13 +24,19 @@
     {% endif %} {% endwith %}
     <div class="sidebar">
       <div class="logo">
-        <img
-          src="{{url_for('static', filename='imagens/logo.png')}}"
-          alt="Logo"
-        />
+        <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
       </div>
       <nav>
         <ul>
+          <li>
+            <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
+            {% if session['nome'] %}
+              {{session['nome']}}
+            {% else %}
+              Conta
+            {% endif %}
+          </a>
+        </li>
           <li><a href="{{url_for('paginas.home')}}">Home</a></li>
           <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
           <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>

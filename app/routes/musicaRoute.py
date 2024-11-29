@@ -6,12 +6,6 @@ from app.middlewares.UsuarioMiddleware import UsuarioMiddleware
 
 musica_bp = Blueprint('musicas', __name__)
 
-@musica_bp.before_request
-@UsuarioMiddleware.verificar_login
-def before_request():
-    pass
-
-
 @musica_bp.route('/cadastro', methods=['POST'])
 @MusicaMiddleware.checar_existencia_de_musica
 @MusicaMiddleware.checar_formato_imagem

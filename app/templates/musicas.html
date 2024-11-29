@@ -1,65 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='css/musicas/musicas.css')}}" />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='css/perfil/perfil.css')}}" />
-      <link
-        rel="stylesheet"
-        href="{{url_for('static', filename='css/mensagens.css')}}"
-      />
-  </head>
-  <body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <section class="mensagens notificacao">
-      {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %}
-    </section>
-    {% endif %}
-    {% endwith %}
-    <!-- Barra lateral com links de navegação -->
-    <div class="sidebar">
-      <div class="logo">
-        <img src="{{url_for('static', filename='imagens/logo.png')}}" alt />
-      </div>
-      <nav>
-        <ul>
-          <li><a href="{{url_for('paginas.home')}}">Home</a></li>
-          <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
-          <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
-        </ul>
-      </nav>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Músicas - Darktune</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/musicas/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
     </div>
-
-    <ul class="songs-list">
-      {% for musica in musicas %}
-      <li>
-        <img
-          src="{{url_for('static', filename='uploads/imagens/' + musica['url_imagem'])}}"
-          alt="Imagem do álbum"
-          class="album-img" />
-        <div class="song-info">
-          <span class="song-title">{{musica['nome']}}</span>
-          <span class="song-artist">{{musica['cantores'] | join(", ")}}</span>
-        </div>
-        <div class="buttons">
-          <a class="heart-button"
-            href="{{url_for('musicas.curtir_musica', id=musica['id'])}}">♡</a>
-          <a class="play-button"
-            href="{{url_for('paginas.musica', id=musica['id'])}}">▶</a>
-        </div>
+    <nav>
+      <ul>
+        <li>
+          <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
+          {% if session['nome'] %}
+            {{session['nome']}}
+          {% else %}
+            Conta
+          {% endif %}
+        </a>
       </li>
-      {% endfor %}
-    </ul>
+        <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+        <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
+        <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
+      </ul>
+    </nav>
+  </div>
 
-    <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
-  </body>
+  <div class="conteudo-principal">
+    <header>
+      <input type="text" placeholder="Filtrar músicas..." class="campo-filtro">
+      <select class="filtro">
+        <option value="recentes">Filtros</option>
+        <option value="favoritas">Favoritas</option>
+        <option value="artista">Por Artista</option>
+      </select>
+    </header>
+
+    <section class="lista-musicas">
+      {% for musica in musicas %}
+      <div class="musica">
+        <img src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}" alt="Capa do Álbum">
+        <div class="info-musica">
+          <h2 class="titulo-musica">{{musica['nome']}}</h2>
+          <h3 class="artista-musica">{{musica['cantores'] | join(', ')}}</h3>
+        </div>
+        <div class="acoes">
+          {% if musica['curtida_usuario'] == 0 %}
+            <a class="btn-favoritar" href="{{url_for('musicas.curtir_musica', id=musica['id'])}}">🤍</a>
+          {% else %}
+            <a class="btn-favoritar" href="{{url_for('musicas.descurtir_musica', id=musica['id_curtida'])}}">❤️</a>
+          {% endif %}
+          <a class="btn-reproduzir" href="{{url_for('paginas.musica', id=musica['id'])}}">▶</a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
