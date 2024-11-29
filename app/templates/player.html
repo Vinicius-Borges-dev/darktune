@@ -6,29 +6,47 @@
     <title>Document</title>
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='css/mensagens.css')}}"
-    />
+      href="{{url_for('static', filename='css/player.css')}}" />
   </head>
   <body>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <section class="mensagens notificacao">
-      {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %}
-    </section>
-    {% endif %} {% endwith %} {{musica}}
+    <div class="container">
+      <section class="card-player">
+        <div class="music-area">
+          <img
+            src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
+            class="imagem" alt="{{musica['nome']}}">
+          <div class="music-info">
+            <h2>{{musica['nome']}}</h2>
+            <p>{{musica['cantores'] | join(', ')}}</p>
+          </div>
+          <span>
+            <a href>❤️</a>
+          </span>
+        </div>
+        <div class="audio-area">
+          <input type="range">
+          <div class="controls">
+            <button>
+              <img
+                src="{{url_for('static', filename='imagens/icone-voltar.svg')}}"
+                alt="Icone de voltar">
+            </button>
+            <button>
+              <img
+                src="{{url_for('static', filename='imagens/icone-play.svg')}}"
+                alt="Icone de play">
+            </button>
+            <button>
+              <img
+                src="{{url_for('static', filename='imagens/icone-avancar.svg')}}"
+                alt="Icone de voltar">
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
 
-    <img
-      src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
-    />
-
-    <audio controls>
-      <source
-        src="{{url_for('static', filename='uploads/audios/'+musica['url_audio'])}}"
-        type="audio/mpeg"
-      />
-    </audio>
-
+    <script src="{{url_for('static', filename='js/player.js')}}"></script>
     <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
   </body>
 </html>
