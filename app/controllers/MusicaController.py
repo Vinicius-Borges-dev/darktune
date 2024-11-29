@@ -314,6 +314,9 @@ class MusicaController:
 
             musica["cantores"] = [cantor[0] for cantor in nome_cantores]
             musica["categorias"] = [categoria[0] for categoria in nome_categorias]
+            musica['url_imagem'] = musica['url_imagem'].split("/")[-1]
+            musica['url_audio'] = musica['url_audio'].split("/")[-1]
+            
 
             return musica
 

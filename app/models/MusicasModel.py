@@ -33,5 +33,6 @@ class MusicasModel(Base):
             "id": self.id_musica,
             "nome": self.nome_musica,
             "url_imagem": self.url_imagem,
+            "url_audio": self.url_audio,
             "id_usuario": self.fk_id_usuario,
         }
