@@ -114,7 +114,7 @@
               <p class="music-name">{{musica['nome']}}</p>
               <p class="artist-name">{{musica['cantores'] | join(', ')}}</p>
               <button class="control-button">
-                <a href="#">▶</a>
+                <a href="{{url_for('paginas.musica', id=musica['id'])}}">▶</a>
               </button>
             </div>
           </div>
