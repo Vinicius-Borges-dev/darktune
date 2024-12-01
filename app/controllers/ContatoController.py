@@ -86,7 +86,6 @@ class ContatoController:
                 .all()
             )
             
-            print(contatos)
             if not contatos:
                 erro = "Nenhum contato encontrado."
                 return render_template("contato.html", erro=erro)

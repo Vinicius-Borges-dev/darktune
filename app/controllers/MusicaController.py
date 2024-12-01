@@ -119,7 +119,6 @@ class MusicaController:
                 musica_dict["url_imagem"] = musica_dict["url_imagem"].split("/")[-1]
                 lista_musicas.append(musica_dict)
 
-            print(lista_musicas)
             return lista_musicas, True
         except Exception as erro:
             raise erro
@@ -197,7 +196,7 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return render_template("musicas.html", musicas=lista_musicas)
+            return render_template("musicas.html", musicas=(lista_musicas, True))
 
         except Exception as erro:
             raise erro
@@ -258,7 +257,7 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return render_template("musicas.html", musicas=lista_musicas)
+            return render_template("musicas.html", musicas=(lista_musicas, True))
 
         except Exception as erro:
             raise erro
@@ -319,7 +318,7 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return render_template("musicas.html", musicas=lista_musicas)
+            return render_template("musicas.html", musicas=(lista_musicas, True))
 
         except Exception as erro:
             raise erro
