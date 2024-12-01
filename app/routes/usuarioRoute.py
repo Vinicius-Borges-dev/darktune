@@ -17,3 +17,8 @@ def deslogar_usuario():
 @usuario_bp.route("/cadastro", methods=["POST"])
 def cadastro_usuario():
     return UsuarioController().criar_novo_usuario()
+
+
+@usuario_bp.route("/editar", methods=["POST"])
+def editar_usuario():
+    return UsuarioController().editar_conta()

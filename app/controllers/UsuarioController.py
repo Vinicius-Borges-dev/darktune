@@ -9,7 +9,8 @@ from flask import (
     session,
 )
 import bcrypt
-
+import os
+from werkzeug.utils import secure_filename
 
 class UsuarioController:
 
@@ -71,13 +72,22 @@ class UsuarioController:
         session.clear()
         return redirect("/")
 
-    def editar_conta():
-        novo_nome = request.form.get("novo_")
+    def editar_conta(self):
+        novo_nome = request.form.get("nome")
         novo_email = request.form.get("email")
+        nova_foto_perfil = request.files.get("foto")
 
         try:
             id_session = session["usuario"]
-            usuario = app.session.query(UsuariosModel).filter_by(id_usuario=id_session)
+            usuario = app.session.query(UsuariosModel).get(id_session)
+            
+            if nova_foto_perfil:
+                foto_tratada = secure_filename(nova_foto_perfil.filename)
+                caminho_foto = os.path.join(app.config['UPLOADS_IMAGES_FOLDER'], foto_tratada.replace("\\","/"))
+                if caminho_foto != usuario.url_foto_perfil:
+                    nova_foto_perfil.save(caminho_foto)
+                    usuario.url_foto_perfil = caminho_foto
+                    
 
             usuario.nome = novo_nome
             usuario.email = novo_email
@@ -88,8 +98,7 @@ class UsuarioController:
 
         except Exception as erro:
             app.session.rollback()
-            flash(str(erro))
-            return redirect(url_for('paginas.conta'))
+            raise erro
 
     def deletar_conta(self):
         try:
