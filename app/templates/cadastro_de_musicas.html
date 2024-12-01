@@ -3,11 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <titulo>Cadastro de Músicas - Darktune</titulo>
+  <title>Cadastro de Músicas - Darktune</title>
   <link rel="stylesheet" href="{{url_for('static', filename='css/cadastro_musica.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+  <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/mensagens.css')}}"
+    />
 </head>
 <body>
+  {% with messages = get_flashed_messages() %} {% if messages %}
+    <section class="mensagens notificacao">
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+    </section>
+    {% endif %} {% endwith %}
+
   <div class="sidebar">
     <div class="logo">
       <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
@@ -52,7 +64,7 @@
 
         <div class="form-grupo">
           <label for="url-imagem">Imagem:</label>
-          <input type="file" id="imagem" name="imagem" required>
+          <input type="file" id="imagem" name="imagem" accept="image/*" required>
         </div>
 
         <div class="form-grupo">
@@ -67,5 +79,5 @@
     </section>
   </div>
 </body>
-<script src="/app/static/js/home/home.js"></script>
+<script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
 </html>

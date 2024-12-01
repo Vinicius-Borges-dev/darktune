@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -88,22 +88,38 @@
     <div class="messages-dropdown">
       <button class="dropdown-btn">mensagens</button>
       <div class="dropdown-content">
-        <table>
-          <thead>
-            <tr>
-              <th>Mensagem</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for contato in contatos %}
+        {% if erro %}
+          <tr>
+            <td>{{ erro }}</td>
+          </tr>
+        {% else %}
+          <table>
+            <thead>
               <tr>
-                <td>{{contato['mensagem']}}</td>
-                <td><a href="{{url_for('contatos.deletar_contato', id=contato['id'])}}">Excluir mensagem</a></td>
+                <th>Mensagem</th>
+                <th>Ações</th>
               </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+                {% if meus_contatos %}
+                  {% for contato in meus_contatos %}
+                    <tr>
+                      <td>{{contato['mensagem']}}</td>
+                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id'])}}">Excluir mensagem</a></td>
+                    </tr>
+                  {% endfor %}
+                {% elif todos_os_contatos %}
+                  {% for contato in todos_os_contatos %}
+                    <tr>
+                      <td>{{contato['nome_usuario']}}</td>
+                      <td>{{contato['mensagem']}}</td>
+                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id_contato'])}}">Excluir mensagem</a></td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+            </tbody>
+          </table>
+        {% endif %}
       </div>
     </div>
 

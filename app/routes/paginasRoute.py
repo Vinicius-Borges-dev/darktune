@@ -17,8 +17,7 @@ def home():
 @paginas_bp.route("/contato")
 @UsuarioMiddleware.verificar_login
 def contato():
-    dados_contatos = ContatoController().buscar_contatos()
-    return render_template("contato.html", contatos=dados_contatos)
+    return ContatoController().buscar_contatos()
 
 
 @paginas_bp.route("/musicas")
@@ -44,6 +43,14 @@ def conta():
         return render_template("conta.html", dados=dados_usuario, curtidas=curtidas)
     else:
         musicas_adicionadas = MusicaController().capturar_todas_as_musicas()
+
+        if not musicas_adicionadas[1]:
+            return render_template(
+                "conta.html",
+                dados=dados_usuario,
+                curtidas=curtidas,
+                erro=musicas_adicionadas,
+            )
 
         return render_template(
             "conta.html",

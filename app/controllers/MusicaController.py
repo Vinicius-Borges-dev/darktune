@@ -1,4 +1,4 @@
-from flask import current_app as app, request, redirect, flash, url_for, session
+from flask import current_app as app, request, redirect, flash, url_for, session, render_template
 from app.models import (
     MusicasModel,
     CantoresMusicasModel,
@@ -78,8 +78,10 @@ class MusicaController:
         usuario_id = session.get("usuario")
         try:
             musicas = app.session.query(MusicasModel).all()
+            
             if not musicas:
                 return "Nenhuma música encontrada.", False
+            
             lista_musicas = []
             for musica in musicas:
                 musica_dict = musica.to_dict()
@@ -117,7 +119,8 @@ class MusicaController:
                 musica_dict["url_imagem"] = musica_dict["url_imagem"].split("/")[-1]
                 lista_musicas.append(musica_dict)
 
-            return lista_musicas
+            print(lista_musicas)
+            return lista_musicas, True
         except Exception as erro:
             raise erro
 
@@ -147,19 +150,36 @@ class MusicaController:
         except Exception as erro:
             raise erro
 
-    def capturar_musicas_por_nome(nome: str):
+    def capturar_musicas_por_nome(self, nome: str):
         try:
             musicas = (
                 app.session.query(MusicasModel)
-                .filter(MusicasModel.nome_musica.like(nome))
+                .filter(MusicasModel.nome_musica.like(f"%{nome.lower()}%"))
                 .all()
             )
 
             if not musicas:
-                return "Nenhuma música encontrada com esse nome."
+                flash("Música não encontrada.")
+                return redirect(url_for('paginas.musicas'))
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
+                
+                curtida = (
+                    app.session.query(CurtidasModel)
+                    .filter(
+                        CurtidasModel.fk_id_usuario == session.get('usuario'),
+                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                    )
+                    .first()
+                )
+
+                if not curtida:
+                    musica["curtida_usuario"] = 0
+                else:
+                    musica["curtida_usuario"] = 1
+                    musica["id_curtida"] = curtida.id_curtida
+                
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -177,12 +197,12 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return lista_musicas
+            return render_template("musicas.html", musicas=lista_musicas)
 
         except Exception as erro:
             raise erro
 
-    def capturar_musicas_por_cantor(cantor: str):
+    def capturar_musicas_por_cantor(self, cantor: str):
         try:
             musicas = (
                 app.session.query(MusicasModel)
@@ -194,15 +214,33 @@ class MusicaController:
                     CantoresModel,
                     CantoresModel.id_cantor == CantoresMusicasModel.fk_id_cantor,
                 )
-                .filter(CantoresModel.nome_cantor.like(cantor))
+                .filter(CantoresModel.nome_cantor.like(f"%{cantor.lower()}%"))
                 .all()
             )
 
             if not musicas:
-                return "Nenhum cantor encontrado"
+                flash("Música não encontrada.")
+                return redirect(url_for('paginas.musicas'))
+            
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
+                
+                curtida = (
+                    app.session.query(CurtidasModel)
+                    .filter(
+                        CurtidasModel.fk_id_usuario == session.get('usuario'),
+                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                    )
+                    .first()
+                )
+
+                if not curtida:
+                    musica["curtida_usuario"] = 0
+                else:
+                    musica["curtida_usuario"] = 1
+                    musica["id_curtida"] = curtida.id_curtida
+                
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -220,12 +258,12 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return lista_musicas
+            return render_template("musicas.html", musicas=lista_musicas)
 
         except Exception as erro:
             raise erro
 
-    def capturar_musicas_por_categoria(categoria: str):
+    def capturar_musicas_por_categoria(self, categoria: str):
         try:
             musicas = (
                 app.session.query(MusicasModel)
@@ -238,15 +276,32 @@ class MusicaController:
                     CategoriasModel.id_categoria
                     == MusicasCategoriasModel.fk_id_categoria,
                 )
-                .filter(CategoriasModel.nome_categoria.like(categoria))
+                .filter(CategoriasModel.nome_categoria.like(f"%{categoria.lower()}%"))
                 .all()
             )
 
             if not musicas:
-                return "Nenhuma música encontrada com essa categoria."
+                flash("Música não encontrada.")
+                return redirect(url_for('paginas.musicas'))
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
+                
+                curtida = (
+                    app.session.query(CurtidasModel)
+                    .filter(
+                        CurtidasModel.fk_id_usuario == session.get('usuario'),
+                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                    )
+                    .first()
+                )
+
+                if not curtida:
+                    musica["curtida_usuario"] = 0
+                else:
+                    musica["curtida_usuario"] = 1
+                    musica["id_curtida"] = curtida.id_curtida
+                
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -264,7 +319,7 @@ class MusicaController:
                 musica["cantores"] = [cantor[0] for cantor in nome_cantores]
                 musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
 
-            return lista_musicas
+            return render_template("musicas.html", musicas=lista_musicas)
 
         except Exception as erro:
             raise erro
@@ -281,7 +336,6 @@ class MusicaController:
                 return "Nenhuma música encontrada."
 
             musica = musica.to_dict()
-            print(musica)
 
             nome_cantores = (
                 app.session.query(CantoresModel.nome_cantor)

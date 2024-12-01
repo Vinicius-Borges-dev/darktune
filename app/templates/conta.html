@@ -105,7 +105,7 @@
             </tr>
           </thead>
           <tbody>
-            {% for musica in musicas_adicionadas %}
+            {% for musica in musicas_adicionadas[0] %}
             <tr>
               <td>{{musica['id']}}</td>
               <td>
@@ -124,6 +124,9 @@
             {% endfor %}
           </tbody>
         </table>
+        {% elif erro %}
+        <p>{{erro[0]}}</p>
+        <a href="{{url_for('paginas.cadastro_musica')}}">Adicionar Música</a>
         {% endif %}
       </div>
       <div id="edit-section" class="section" style="display: none">

@@ -30,7 +30,7 @@ class UsuarioController:
                     nome=nome,
                     email=email,
                     senha=senha_hash,
-                    nivel="usuario",
+                    nivel="admin",
                     url_perfil="",
                 )
                 app.session.add(novo_usuario)
