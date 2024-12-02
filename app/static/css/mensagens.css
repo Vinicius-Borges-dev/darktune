@@ -9,4 +9,6 @@
     background-color: #f8f9fa;
     border-radius: 8px;
     color: black;
+    z-index: 999;
 }
+
