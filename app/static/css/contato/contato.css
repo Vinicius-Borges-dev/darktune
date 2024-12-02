@@ -175,3 +175,11 @@ input[type="submit"]:hover {
     border-bottom: 2px solid #000;
   }
 }
+
+.icone-lixo{
+  width: 20px;
+}
+
+.icone-lixo:hover{
+  filter: invert(1);
+}

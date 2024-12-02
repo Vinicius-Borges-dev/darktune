@@ -105,7 +105,7 @@
                   {% for contato in meus_contatos %}
                     <tr>
                       <td>{{contato['mensagem']}}</td>
-                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id'])}}">Excluir mensagem</a></td>
+                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id'])}}"><img class="icone-lixo" src="{{url_for('static', filename='imagens/trash.svg')}}"></a></td>
                     </tr>
                   {% endfor %}
                 {% elif todos_os_contatos %}
@@ -113,7 +113,7 @@
                     <tr>
                       <td>{{contato['nome_usuario']}}</td>
                       <td>{{contato['mensagem']}}</td>
-                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id_contato'])}}">Excluir mensagem</a></td>
+                      <td><a href="{{url_for('contatos.deletar_contato', id=contato['id_contato'])}}"><img class="icone-lixo" src="{{url_for('static', filename='imagens/trash.svg')}}"></a></td>
                     </tr>
                   {% endfor %}
                 {% endif %}
