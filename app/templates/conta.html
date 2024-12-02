@@ -15,13 +15,15 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
   </head>
   <body>
-    {% with messages = get_flashed_messages() %} {% if messages %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <section class="mensagens notificacao">
       {% for message in messages %}
       <p>{{ message }}</p>
       {% endfor %}
     </section>
-    {% endif %} {% endwith %}
+    {% endif %}
+    {% endwith %}
     <div class="sidebar">
       <div class="logo">
         <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
@@ -58,101 +60,102 @@
         <h1>{{dados['nome']}}</h1>
         <h2>Músicas Curtidas</h2>
         <ul class="songs-list">
-          {% if curtidas %} {% for curtida in curtidas%}
-          <li>
-            <img
-              src="{{url_for('static', filename='uploads/imagens/'+curtida['imagem'])}}"
-              alt="Imagem do álbum"
-              class="album-img"
-            />
-            <div class="song-info">
-              <span class="song-title">{{curtida['nome_musica']}}</span>
-              <span class="song-artist"
-                >{{curtida['cantores'] | join(', ')}}</span
-              >
-            </div>
-            <div class="buttons">
-              <a
-                class="heart-button"
-                href="{{url_for('musicas.descurtir_musica', id=curtida['id'])}}"
-                >♡</a
-              >
-              <a
-                class="play-button"
-                href="{{url_for('paginas.musica', id=curtida['musica_id'])}}"
-                >▶</a
-              >
-            </div>
-          </li>
-          {% endfor %} {% else %}
-          <li>
-            <p>Nenhuma música curtida</p>
-          </li>
+          {% if curtidas %}
+            {% for curtida in curtidas %}
+              <li>
+                <img
+                  src="{{url_for('static', filename='uploads/imagens/'+curtida['imagem'])}}"
+                  alt="Imagem do álbum"
+                  class="album-img"
+                />
+                <div class="song-info">
+                  <span class="song-title">{{curtida['nome_musica']}}</span>
+                  <span class="song-artist">{{curtida['cantores'] | join(', ')}}</span>
+                </div>
+                <div class="buttons">
+                  <a class="heart-button" href="{{url_for('musicas.descurtir_musica', id=curtida['id'])}}">♡</a>
+                  <a class="play-button" href="{{url_for('paginas.musica', id=curtida['musica_id'])}}">▶</a>
+                </div>
+              </li>
+            {% endfor %}
+          {% else %}
+            <li><p>Nenhuma música curtida</p></li>
           {% endif %}
         </ul>
+
         {% if musicas_adicionadas %}
-        <h2 class="titulo_musicas" >Todas as músicas</h2>
-        <a href="{{url_for('paginas.cadastro_musica')}}" class="btn_adicionar_musicas">Adicionar Música</a>
-        <table>
-          <thead>
+          <h2 class="titulo_musicas">Todas as músicas</h2>
+          <a href="{{url_for('paginas.cadastro_musica')}}" class="btn_adicionar_musicas">Adicionar Música</a>
+
+          
+          <table class="outer-table">
             <tr>
-              <th>ID</th>
-              <th>Música</th>
-              <th>Cantores</th>
-              <th>Categorias</th>
-              <th>Criador</th>
-              <th colspan="2">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for musica in musicas_adicionadas[0] %}
-            <tr>
-              <td>{{musica['id']}}</td>
               <td>
-                <img
-                  style="width: 30px; height: 30px; border-radius: 100px"
-                  src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
-                  alt="{{musica['nome']}}"
-                />{{musica['nome']}}
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Música</th>
+                      <th>Cantor(es)</th>
+                      <th>Gênero(s)</th>
+                      <th>Criador</th>
+                      <th colspan="2">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for musica in musicas_adicionadas[0] %}
+                      <tr>
+                        <td>{{musica['id']}}</td>
+                        <td>
+                          <img
+                            style="width: 30px; height: 30px; border-radius: 100px"
+                            src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
+                            alt="{{musica['nome']}}"
+                          />{{musica['nome']}}
+                        </td>
+                        <td>{{musica['cantores'] | join(', ')}}</td>
+                        <td></td>
+                        <td>{{musica['id_usuario']}}</td>
+                        <td><a href="{{url_for('formularios.form_editar_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/edit.svg')}}" alt=""></a></td>
+                        <td><a href="{{url_for('musicas.excluir_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/lixo.svg')}}" alt=""></a></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </td>
-              <td>{{musica['cantores'] | join(', ')}}</td>
-              <td></td>
-              <td>{{musica['id_usuario']}}</td>
-              <td><a href="{{url_for('formularios.form_editar_musica', id=musica['id'])}}">Editar</a></td>
-              <td><a href="{{url_for('musicas.excluir_musica', id=musica['id'])}}">Excluir</a></td>
             </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+          </table>
         {% elif erro %}
-        <p>{{erro[0]}}</p>
-        <a href="{{url_for('paginas.cadastro_musica')}}">Adicionar Música</a>
+          <p>{{erro[0]}}</p>
+          <a class="musica" href="{{url_for('paginas.cadastro_musica')}}">Adicionar Música</a>
         {% endif %}
       </div>
-      <div id="edit-section" class="section" style="display: none">
-        <button class="back-button" onclick="showProfileSection()">
-          &larr; Voltar ao Perfil
-        </button>
-        <form action="{{url_for('usuarios.editar_usuario')}}" method="POST">
-          <div class="form-group">
-            <label for="user-img">Imagem do Usuário</label>
-            <input type="file" id="user-img" name="foto" accept="image/*"/>
-          </div>
-          <div class="form-group">
-            <label for="user-name">Nome</label>
-            <input type="text" id="user-name" name="nome" value="{{dados['nome']}}" />
-          </div>
-          <div class="form-group">
-            <label for="user-email">Email</label>
-            <input type="email" id="user-email" name="email" value="{{dados['email']}}" />
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Atualizar" />
-          </div>
-        </form ac>
-      </div>
-      <a href="{{url_for('usuarios.deslogar_usuario')}}">Sair</a>
     </div>
+
+    <div id="edit-section" class="section" style="display: none">
+      <button class="back-button" onclick="showProfileSection()">
+        &larr; Voltar ao Perfil
+      </button>
+      <form action="{{url_for('usuarios.editar_usuario')}}" method="POST">
+        <div class="form-group">
+          <label for="user-img">Imagem do Usuário</label>
+          <input type="file" id="user-img" name="foto" accept="image/*"/>
+        </div>
+        <div class="form-group">
+          <label for="user-name">Nome</label>
+          <input type="text" id="user-name" name="nome" value="{{dados['nome']}}" />
+        </div>
+        <div class="form-group">
+          <label for="user-email">Email</label>
+          <input type="email" id="user-email" name="email" value="{{dados['email']}}" />
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Atualizar" />
+        </div>
+      </form>
+    </div>
+
+    <a class="botaosair" href="{{url_for('usuarios.deslogar_usuario')}}">Sair</a>
 
     <script src="{{url_for('static', filename='js/perfil/perfil.js')}}"></script>
     <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
