@@ -54,9 +54,9 @@
         </div>
         <div class="acoes">
           {% if musica['curtida_usuario'] == 0 %}
-            <a class="btn-favoritar" href="{{url_for('musicas.curtir_musica', id=musica['id'])}}">🤍</a>
+            <a class="btn-favoritar" href="{{url_for('musicas.curtir_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/like.png')}}"></a>
           {% else %}
-            <a class="btn-favoritar" href="{{url_for('musicas.descurtir_musica', id=musica['id_curtida'])}}">❤️</a>
+            <a class="btn-favoritar" href="{{url_for('musicas.descurtir_musica', id=musica['id_curtida'])}}"><img src="{{url_for('static', filename='imagens/deslike.png')}}"></a>
           {% endif %}
           <a class="btn-reproduzir" href="{{url_for('paginas.musica', id=musica['id'])}}">▶</a>
         </div>

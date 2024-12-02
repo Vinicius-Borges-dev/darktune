@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from app.controllers.MusicaController import MusicaController
 from app.controllers.ContatoController import ContatoController
 from app.middlewares.UsuarioMiddleware import UsuarioMiddleware
@@ -29,6 +29,8 @@ def musicas():
 @paginas_bp.route("/musica/<int:id>")
 def musica(id):
     musica = MusicaController().buscar_dados_da_musica(id)
+    if musica == "Nenhuma música encontrada.":
+        return redirect(url_for("paginas.musicas"))
     return render_template("player.html", musica=musica)
 
 

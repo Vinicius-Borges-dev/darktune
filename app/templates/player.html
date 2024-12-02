@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Music Player</title>
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='css/player.css')}}" />
+      href="{{url_for('static', filename='css/player.css')}}"
+    />
   </head>
   <body>
     <div class="container">
@@ -14,39 +15,151 @@
         <div class="music-area">
           <img
             src="{{url_for('static', filename='uploads/imagens/'+musica['url_imagem'])}}"
-            class="imagem" alt="{{musica['nome']}}">
+            class="imagem"
+            alt="Album Cover"
+          />
           <div class="music-info">
             <h2>{{musica['nome']}}</h2>
             <p>{{musica['cantores'] | join(', ')}}</p>
           </div>
-          <span>
-            <a href>❤️</a>
+          <span class="like-area">
+            {% if musica['curtida_usuario'] == 0 %}
+            <a href="{{url_for('musicas.curtir_musica', id=musica['id'])}}"
+              ><img
+                src="{{url_for('static', filename='imagens/like.png')}}"
+                alt="Like"
+            /></a>
+            {% else %}
+            <a
+              href="{{urL_for('musicas.descurtir_musica', id=musica['id_curtida'])}}"
+              ><img
+                src="{{url_for('static', filename='imagens/deslike.png')}}"
+                alt="deslike"
+            /></a>
+            {% endif %}
           </span>
         </div>
+
         <div class="audio-area">
-          <input type="range">
+          <div class="progress-area">
+            <span id="current-time">0:00</span>
+            <input type="range" id="progress-bar" value="0" />
+            <span id="duration">0:00</span>
+          </div>
+
           <div class="controls">
-            <button>
-              <img
-                src="{{url_for('static', filename='imagens/icone-voltar.svg')}}"
-                alt="Icone de voltar">
+            <button id="prev-btn">
+              <a href="{{url_for('paginas.musica', id=musica['id']-1)}}">
+                <img
+                  src="{{url_for('static', filename='imagens/icone-voltar.svg')}}"
+                  alt="Previous"
+                />
+              </a>
             </button>
-            <button>
+            <button id="play-btn">
               <img
                 src="{{url_for('static', filename='imagens/icone-play.svg')}}"
-                alt="Icone de play">
+                alt="Play"
+                id="play-icon"
+              />
             </button>
-            <button>
-              <img
-                src="{{url_for('static', filename='imagens/icone-avancar.svg')}}"
-                alt="Icone de voltar">
+            <button id="next-btn">
+              <a href="{{url_for('paginas.musica', id=musica['id']+1)}}">
+                <img
+                  src="{{url_for('static', filename='imagens/icone-avancar.svg')}}"
+                  alt="Next"
+                />
+              </a>
             </button>
           </div>
         </div>
+
+        <!-- Áudio embutido -->
+        <audio
+          id="audio"
+          src="{{url_for('static', filename='uploads/audios/'+musica['url_audio'])}}"
+        ></audio>
       </section>
     </div>
 
-    <script src="{{url_for('static', filename='js/player.js')}}"></script>
-    <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
+    <!-- JavaScript -->
+    <script>
+      // Seleção dos elementos
+      const audio = document.getElementById('audio');
+      const playBtn = document.getElementById('play-btn');
+      const playIcon = document.getElementById('play-icon');
+      const progressBar = document.getElementById('progress-bar');
+      const currentTimeElement = document.getElementById('current-time');
+      const durationElement = document.getElementById('duration');
+      let isPlaying = false;
+
+      // Formata o tempo em minutos e segundos
+      function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+      }
+
+      // Reproduzir ou pausar o áudio
+      function togglePlay() {
+        if (isPlaying) {
+          audio.pause();
+          playIcon.src = '{{url_for('static', filename='imagens/icone-play.svg')}}';
+        } else {
+          audio.play();
+          playIcon.src = '{{url_for('static', filename='imagens/pause.png')}}';
+        }
+        isPlaying = !isPlaying;
+      }
+
+      // Atualizar a barra de progresso e o tempo atual
+      audio.addEventListener('timeupdate', () => {
+        const currentTime = audio.currentTime;
+        const duration = audio.duration;
+        progressBar.value = (currentTime / duration) * 100;
+        currentTimeElement.textContent = formatTime(currentTime);
+        if (duration) {
+          durationElement.textContent = formatTime(duration);
+        }
+      });
+
+      // Permitir que o usuário pule para uma parte específica da música
+      progressBar.addEventListener('input', () => {
+        const duration = audio.duration;
+        const seekTime = (progressBar.value / 100) * duration; // Usar 100% de progressão
+        audio.currentTime = seekTime;
+      });
+
+      // Botão de play/pause
+      playBtn.addEventListener('click', togglePlay);
+
+      // Atualizar a duração assim que o áudio carregar
+      audio.addEventListener('loadedmetadata', () => {
+        durationElement.textContent = formatTime(audio.duration);
+      });
+
+      // Parar de tocar quando a música terminar
+      audio.addEventListener('ended', () => {
+        isPlaying = false;
+        playIcon.src = 'play-icon.svg';
+        progressBar.value = 0;
+        currentTimeElement.textContent = '0:00';
+      });
+
+      // Avançar a música (simulação)
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.addEventListener('click', () => {
+        // Simulando a mudança para a próxima música
+        audio.currentTime = audio.duration; // Simula o avanço para o final da música
+        audio.play(); // Começa a música
+      });
+
+      // Botão de retroceder (simulação)
+      const prevBtn = document.getElementById('prev-btn');
+      prevBtn.addEventListener('click', () => {
+        audio.currentTime = 0; // Volta ao início da música
+        audio.play(); // Começa a música novamente
+      });
+    </script>
   </body>
 </html>

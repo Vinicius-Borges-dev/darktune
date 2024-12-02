@@ -228,3 +228,8 @@ header .user-button {
 .control-button:hover {
   background-color: #9b9b9b;
 }
+
+a{
+  text-decoration: none;
+  color: #ffffff;
+}

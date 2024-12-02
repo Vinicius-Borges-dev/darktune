@@ -1,4 +1,12 @@
-from flask import current_app as app, request, redirect, flash, url_for, session, render_template
+from flask import (
+    current_app as app,
+    request,
+    redirect,
+    flash,
+    url_for,
+    session,
+    render_template,
+)
 from app.models import (
     MusicasModel,
     CantoresMusicasModel,
@@ -68,7 +76,7 @@ class MusicaController:
             imagem.save(caminho_imagem)
             musica.save(caminho_audio)
 
-            flash("Música cadastrada com sucesso") 
+            flash("Música cadastrada com sucesso")
             return redirect(url_for("paginas.cadastro_musica"))
 
         except Exception as erro:
@@ -78,10 +86,10 @@ class MusicaController:
         usuario_id = session.get("usuario")
         try:
             musicas = app.session.query(MusicasModel).all()
-            
+
             if not musicas:
                 return "Nenhuma música encontrada.", False
-            
+
             lista_musicas = []
             for musica in musicas:
                 musica_dict = musica.to_dict()
@@ -114,8 +122,22 @@ class MusicaController:
                     .filter(MusicasModel.id_musica == musica.id_musica)
                     .all()
                 )
+                
+                nome_categorias = (
+                    app.session.query(CategoriasModel.nome_categoria)
+                    .join(
+                        MusicasCategoriasModel,
+                        MusicasCategoriasModel.fk_id_categoria == CategoriasModel.id_categoria,
+                    )
+                    .join(
+                        MusicasModel,
+                        MusicasModel.id_musica == MusicasCategoriasModel.fk_id_musica,
+                    ).filter(MusicasModel.id_musica == musica.id_musica)
+                    .all()
+                )
 
                 musica_dict["cantores"] = [cantor[0] for cantor in nome_cantores]
+                musica_dict["categorias"] = [categoria[0] for categoria in nome_categorias]
                 musica_dict["url_imagem"] = musica_dict["url_imagem"].split("/")[-1]
                 lista_musicas.append(musica_dict)
 
@@ -159,16 +181,16 @@ class MusicaController:
 
             if not musicas:
                 flash("Música não encontrada.")
-                return redirect(url_for('paginas.musicas'))
+                return redirect(url_for("paginas.musicas"))
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
-                
+
                 curtida = (
                     app.session.query(CurtidasModel)
                     .filter(
-                        CurtidasModel.fk_id_usuario == session.get('usuario'),
-                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                        CurtidasModel.fk_id_usuario == session.get("usuario"),
+                        CurtidasModel.fk_id_musica == musica.get("id_musica"),
                     )
                     .first()
                 )
@@ -178,7 +200,7 @@ class MusicaController:
                 else:
                     musica["curtida_usuario"] = 1
                     musica["id_curtida"] = curtida.id_curtida
-                
+
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -219,17 +241,16 @@ class MusicaController:
 
             if not musicas:
                 flash("Música não encontrada.")
-                return redirect(url_for('paginas.musicas'))
-            
+                return redirect(url_for("paginas.musicas"))
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
-                
+
                 curtida = (
                     app.session.query(CurtidasModel)
                     .filter(
-                        CurtidasModel.fk_id_usuario == session.get('usuario'),
-                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                        CurtidasModel.fk_id_usuario == session.get("usuario"),
+                        CurtidasModel.fk_id_musica == musica.get("id_musica"),
                     )
                     .first()
                 )
@@ -239,7 +260,7 @@ class MusicaController:
                 else:
                     musica["curtida_usuario"] = 1
                     musica["id_curtida"] = curtida.id_curtida
-                
+
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -281,16 +302,16 @@ class MusicaController:
 
             if not musicas:
                 flash("Música não encontrada.")
-                return redirect(url_for('paginas.musicas'))
+                return redirect(url_for("paginas.musicas"))
 
             lista_musicas = [musica.to_dict() for musica in musicas]
             for musica in lista_musicas:
-                
+
                 curtida = (
                     app.session.query(CurtidasModel)
                     .filter(
-                        CurtidasModel.fk_id_usuario == session.get('usuario'),
-                        CurtidasModel.fk_id_musica == musica.get('id_musica'),
+                        CurtidasModel.fk_id_usuario == session.get("usuario"),
+                        CurtidasModel.fk_id_musica == musica.get("id_musica"),
                     )
                     .first()
                 )
@@ -300,7 +321,7 @@ class MusicaController:
                 else:
                     musica["curtida_usuario"] = 1
                     musica["id_curtida"] = curtida.id_curtida
-                
+
                 nome_cantores = (
                     app.session.query(CantoresModel.nome_cantor)
                     .join(
@@ -350,6 +371,21 @@ class MusicaController:
                 .all()
             )
 
+            curtida = (
+                app.session.query(CurtidasModel)
+                .filter(
+                    CurtidasModel.fk_id_usuario == session.get("usuario"),
+                    CurtidasModel.fk_id_musica == musica.get("id_musica"),
+                )
+                .first()
+            )
+
+            if not curtida:
+                musica["curtida_usuario"] = 0
+            else:
+                musica["curtida_usuario"] = 1
+                musica["id_curtida"] = curtida.id_curtida
+
             nome_categorias = (
                 app.session.query(CategoriasModel.nome_categoria)
                 .join(
@@ -367,9 +403,8 @@ class MusicaController:
 
             musica["cantores"] = [cantor[0] for cantor in nome_cantores]
             musica["categorias"] = [categoria[0] for categoria in nome_categorias]
-            musica['url_imagem'] = musica['url_imagem'].split("/")[-1]
-            musica['url_audio'] = musica['url_audio'].split("/")[-1]
-            
+            musica["url_imagem"] = musica["url_imagem"].split("/")[-1]
+            musica["url_audio"] = musica["url_audio"].split("/")[-1]
 
             return musica
 
@@ -384,7 +419,7 @@ class MusicaController:
         categorias = [categoria.strip() for categoria in categoria.split(",")]
         imagem = request.files.get("imagem")
         musica = request.files.get("musica")
-        
+
         try:
             musica_atual = app.session.query(MusicasModel).get(id)
             if not musica_atual:
@@ -394,13 +429,17 @@ class MusicaController:
             musica_atual.nome_musica = nome_musica.lower()
 
             if imagem:
-                caminho_imagem_atual = os.path.join(app.config["UPLOAD_IMAGES_FOLDER"], secure_filename(imagem.filename)).replace("\\", "/")
+                caminho_imagem_atual = os.path.join(
+                    app.config["UPLOAD_IMAGES_FOLDER"], secure_filename(imagem.filename)
+                ).replace("\\", "/")
                 if caminho_imagem_atual != musica_atual.url_imagem:
                     imagem.save(caminho_imagem_atual)
                     musica_atual.url_imagem = caminho_imagem_atual
 
             if musica:
-                caminho_audio_atual = os.path.join(app.config["UPLOAD_AUDIOS_FOLDER"], secure_filename(musica.filename)).replace("\\", "/")
+                caminho_audio_atual = os.path.join(
+                    app.config["UPLOAD_AUDIOS_FOLDER"], secure_filename(musica.filename)
+                ).replace("\\", "/")
                 if caminho_audio_atual != musica_atual.url_audio:
                     musica.save(caminho_audio_atual)
                     musica_atual.url_audio = caminho_audio_atual
