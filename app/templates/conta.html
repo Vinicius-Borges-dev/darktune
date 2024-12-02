@@ -114,7 +114,7 @@
                           />{{musica['nome']}}
                         </td>
                         <td>{{musica['cantores'] | join(', ')}}</td>
-                        <td></td>
+                        <td>{{musica['categorias'] | join(', ')}}</td>
                         <td>{{musica['id_usuario']}}</td>
                         <td><a href="{{url_for('formularios.form_editar_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/edit.svg')}}" alt=""></a></td>
                         <td><a href="{{url_for('musicas.excluir_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/lixo.svg')}}" alt=""></a></td>
