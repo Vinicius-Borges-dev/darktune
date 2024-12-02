@@ -1,177 +1,120 @@
 /* Estilo global */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #0d0d0d; /* Fundo mais escuro */
-    color: #f0f0f0; /* Texto claro */
-    line-height: 1.6;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Sidebar */
-  .cabecalho {
-    width: 220px;
-    height: 100vh;
-    background-color: #1a1a1a; /* Barra lateral mais escura */
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7); /* Sombra suave */
-  }
-  
-  .logo {
-    width: 160px;
-    height: 120px;
-    margin-bottom: 30px;
-  }
-  
-  .logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px; /* Bordas arredondadas */
-  }
-  
-  
-  /* Conteúdo principal */
-  .main-content {
-    margin-left: 220px;
-    padding: 20px;
-    background-color: #0d0d0d; /* Fundo principal */
-    min-height: 100vh;
-  }
-  
-  /* Cabeçalho */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: #1a1a1a; /* Fundo da barra de navegação */
-    border-bottom: 1px solid #333333; /* Linha de separação */
-  }
-  
-  header .search-bar {
-    padding: 10px;
-    width: 70%;
-    border: none;
-    border-radius: 20px;
-    background-color: #333333; /* Fundo da barra de pesquisa */
-    color: #ffffff;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  header .search-bar::placeholder {
-    color: #999999; /* Placeholder mais suave */
-  }
-  
-  header .search-bar:focus {
-    outline: none;
-    background-color: #444444; /* Fundo mais claro ao focar */
-  }
-  
-  header .user-button {
-    background-color: #5c5c5c;
-    color: #ffffff;
-    border: none;
-    padding: 10px 25px;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  header .user-button:hover {
-    background-color: #777777; /* Cor mais clara ao passar o mouse */
-  }
-  
-  /* Estilo para o formulário de cadastro de músicas */
-  form.music-upload-form {
-    background-color: #1a1a1a;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra ao redor do formulário */
-    max-width: 600px;
-    margin: 20px auto;
-  }
-  
-  form.music-upload-form .form-grupo {
-    margin-bottom: 20px;
-  }
-  
-  form.music-upload-form label {
-    display: block;
-    font-size: 16px;
-    color: #cccccc;
-    margin-bottom: 5px;
-  }
-  
-  form.music-upload-form input[type="text"],
-  form.music-upload-form input[type="url"],
-  form.music-upload-form input[type="date"],
-  form.music-upload-form input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #444444;
-    border-radius: 5px;
-    background-color: #333333;
-    color: #ffffff;
-    font-size: 16px;
-    transition: border 0.3s ease;
-  }
-  
-  form.music-upload-form input[type="text"]:focus,
-  form.music-upload-form input[type="url"]:focus,
-  form.music-upload-form input[type="date"]:focus,
-  form.music-upload-form input[type="file"]:focus {
-    outline: none;
-    border: 1px solid #555555;
-  }
-  
-  form.music-upload-form button.submit-button {
-    background-color: #5c5c5c;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  
-  form.music-upload-form button.submit-button:hover {
-    background-color: #777777;
-  }
-  
-  /* Footer */
-  footer {
-    background-color: #1a1a1a;
-    padding: 20px;
-    text-align: center;
-    color: #cccccc;
-    font-size: 14px;
-    border-top: 1px solid #333333;
-    margin-top: 50px;
-  }
-  
-  footer a {
-    color: #ffffff;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-  }
-  
-  footer a:hover {
-    color: #bbbbbb;
-  }
-  
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #0d0d0d; /* Fundo mais escuro */
+  color: #f0f0f0; /* Texto claro */
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.logo {
+  width: 160px;
+  height: 120px;
+  margin-bottom: 30px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Conteúdo principal */
+.main-content {
+  margin-left: 220px;
+  padding: 200px;
+  background-color: #0d0d0d; /* Fundo principal */
+  min-height: 100vh;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #cccccc;
+  margin-bottom: 20px;
+}
+
+.music-upload-form {
+  background-color: #1a1a1a;
+  padding: 70px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra ao redor do formulário */
+  max-width: 6000px;
+  margin: 0 auto;
+  border: 1px solid #333333;
+}
+
+.form-grupo {
+  margin-bottom: 20px;
+}
+
+img-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: #333333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #999999;
+  font-size: 24px;
+  margin: 0 auto;
+}
+
+.escolher-imagem, .escolher-arquivo {
+  background-color: #000;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333333;
+  color: #f0f0f0;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+input[type="text"]::placeholder {
+  color: #999999;
+}
+
+.dev-section {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.dev-section span {
+  background-color: #ffcc00;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #5c5c5c;
+  color: #ffffff;
+  border: none;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #777777;
+}

@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Músicas - Darktune</title>
+  <title>Página Cadastro de Músicas</title>
   <link rel="stylesheet" href="{{url_for('static', filename='css/cadastro_musica.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
-  <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='css/mensagens.css')}}"
-    />
 </head>
 <body>
+
   {% with messages = get_flashed_messages() %} {% if messages %}
     <section class="mensagens notificacao">
       {% for message in messages %}
@@ -20,64 +17,96 @@
     </section>
     {% endif %} {% endwith %}
 
-  <div class="sidebar">
-    <div class="logo">
-      <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
+
+    <div class="sidebar">
+      <div class="logo">
+        <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
+            {% if session['nome'] %}
+              {{session['nome']}}
+            {% else %}
+              Conta
+            {% endif %}
+          </a>
+        </li>
+          <li><a href="{{url_for('paginas.home')}}">Home</a></li>
+          <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
+          <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li>
-          <a href="{{url_for('paginas.musicas')}}"><a href="{{url_for('paginas.conta')}}" class="user-button">
-          {% if session['nome'] %}
-            {{session['nome']}}
-          {% else %}
-            Conta
-          {% endif %}
-        </a>
-      </li>
-        <li><a href="{{url_for('paginas.home')}}">Home</a></li>
-        <li><a href="{{url_for('paginas.contato')}}">Contato</a></li>
-        <li><a href="{{url_for('paginas.musicas')}}">Lista de Músicas</a></li>
-      </ul>
-    </nav>
-  </div>
-  
-  <div class="main-content">
+
+    <div class="main-content">
     <section id="music-upload">
-      <h1>Cadastro de Músicas</h1>
       <form action="{{url_for('musicas.cadastro_musica')}}" method="POST" enctype="multipart/form-data" class="music-upload-form">
         <div class="form-grupo">
-          <label for="nome-musica">Nome da Música:</label>
-          <input type="text" id="nome-musica" name="nome_musica" required>
+          <div class="img-placeholder" id="img-placeholder">
+            <p>IMG</p>
+          </div>
+          <label for="imagem-musica" class="escolher-imagem">Escolha imagem</label>
+          <input type="file" id="imagem-musica" name="imagem" accept="image/*" hidden>
         </div>
 
         <div class="form-grupo">
-          <label for="autor">Cantores:</label>
-          <input type="text" id="cantor" name="cantor" required>
-        </div>
-
+          <input type="text" id="nome-musica" name="nome_musica" placeholder="Digite o nome da música" required>
+        </div>  
 
         <div class="form-grupo">
-          <label for="genero">Categorias:</label>
-          <input type="text" id="categoria" name="categoria" required>
+          <input type="text" id="cantor" name="cantor" placeholder="Digite o nome do Cantor da música (caso seja mais de um cantor, separe-os por vírgula)" required>
         </div>
 
         <div class="form-grupo">
-          <label for="url-imagem">Imagem:</label>
-          <input type="file" id="imagem" name="imagem" accept="image/*" required>
+          <input type="text" id="categoria" name="categoria" placeholder="Digite a categoria da música (caso seja mais de uma categoria, separe-os por vírgula)" required>
         </div>
 
         <div class="form-grupo">
-          <label for="arquivo-musica">Música:</label>
-          <input type="file" id="musica" name="musica" accept="audio/*" required>
+          <label for="arquivo-musica" class="escolher-arquivo">Escolha o arquivo/áudio</label>
+          <input type="file" id="arquivo-musica" name="musica" accept="audio/*" hidden>
         </div>
 
         <div class="form-grupo">
-          <button type="submit" class="submit-button">Cadastrar Música</button>
+          <button type="submit" class="submit-button">Salvar</button>
         </div>
       </form>
     </section>
   </div>
+
+  <script>
+    // Seleciona os elementos
+    const imgInput = document.getElementById('imagem-musica');
+    const imgPlaceholder = document.getElementById('img-placeholder');
+
+    // Adiciona um listener para quando o arquivo for alterado
+    imgInput.addEventListener('change', function(event) {
+      const file = event.target.files[0]; // Obtém o arquivo selecionado
+      
+      // Verifica se é uma imagem válida
+      if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+        const reader = new FileReader(); // Cria um FileReader para ler o arquivo
+
+        // Quando o arquivo for carregado, atualiza o conteúdo do placeholder
+        reader.onload = function(e) {
+          imgPlaceholder.innerHTML = ''; // Remove o texto "IMG"
+          
+          // Cria uma tag de imagem e define o src como o conteúdo do arquivo
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.alt = "Imagem da Música";
+          img.style.maxWidth = '30%'; // Ajusta a imagem para não ultrapassar o placeholder
+          img.style.maxHeight = '30%'; // Ajusta a altura
+
+          imgPlaceholder.appendChild(img); // Adiciona a imagem ao placeholder
+        };
+
+        reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados
+      } else {
+        alert('Por favor, selecione uma imagem válida (JPEG ou PNG).');
+      }
+    });
+  </script>
 </body>
-<script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
 </html>
