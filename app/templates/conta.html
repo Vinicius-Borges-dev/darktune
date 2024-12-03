@@ -130,6 +130,7 @@
           <p>{{erro[0]}}</p>
           <a class="musica" href="{{url_for('paginas.cadastro_musica')}}">Adicionar Música</a>
         {% endif %}
+        <a class="botaosair" href="{{url_for('usuarios.deslogar_usuario')}}">Sair</a>
       </div>
     </div>
 
@@ -154,9 +155,10 @@
           <input type="submit" value="Atualizar" />
         </div>
       </form>
+      
     </div>
 
-    <a class="botaosair" href="{{url_for('usuarios.deslogar_usuario')}}">Sair</a>
+    
 
     <script src="{{url_for('static', filename='js/perfil/perfil.js')}}"></script>
     <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
