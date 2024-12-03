@@ -32,9 +32,9 @@ def curtir_musica(id):
     return CurtidaController().criar_nova_curtida(id)
 
 
-@musica_bp.route("/descurtir/<int:id>", methods=["GET"])
-def descurtir_musica(id):
-    return CurtidaController().descurtir(id)
+@musica_bp.route("/descurtir/<int:id>/<string:link>", methods=["GET"])
+def descurtir_musica(id, link):
+    return CurtidaController().descurtir(id, link)
 
 
 @musica_bp.route("/listar/", methods=["GET"])

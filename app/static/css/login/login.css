@@ -21,6 +21,11 @@ body {
     margin: 0;
 }
 
+a{
+    text-decoration: none;
+    color:white;
+}
+
 .imagem {
     content: "";
     position: fixed;

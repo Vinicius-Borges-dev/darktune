@@ -89,12 +89,13 @@ class CurtidaController:
         except Exception as erro:
             raise erro
 
-    def descurtir(self, id_curtida: int):
+    def descurtir(self, id_curtida: int, link:str):
         try:
             curtida = app.session.query(CurtidasModel).filter(CurtidasModel.id_curtida == id_curtida).first()
             app.session.delete(curtida)
             app.session.commit()
             
-            return redirect(url_for("paginas.conta"))
+            flash("Descurtida realizada.")
+            return redirect(url_for(f"{link}"))
         except Exception as erro:
             raise erro

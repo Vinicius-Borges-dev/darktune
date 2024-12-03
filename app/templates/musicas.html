@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Músicas - Darktune</title>
   <link rel="stylesheet" href="{{url_for('static', filename='css/musicas/style.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='css/mensagens.css')}}"
+  />
 </head>
 <body>
+  {% with messages = get_flashed_messages() %} 
+      {% if messages %}
+        <section class="mensagens notificacao">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </section>
+      {% endif %} 
+    {% endwith %}
   <div class="sidebar">
     <div class="logo">
       <img src="{{url_for('static', filename='imagens/logo.png')}}" alt="Logo Darktune">
@@ -54,9 +67,9 @@
         </div>
         <div class="acoes">
           {% if musica['curtida_usuario'] == 0 %}
-            <a class="btn-favoritar" href="{{url_for('musicas.curtir_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/like.png')}}"></a>
+            <a class="btn-favoritar" href="{{url_for('musicas.curtir_musica', id=musica['id'])}}"><img src="{{url_for('static', filename='imagens/deslike.png')}}"></a>
           {% else %}
-            <a class="btn-favoritar" href="{{url_for('musicas.descurtir_musica', id=musica['id_curtida'])}}"><img src="{{url_for('static', filename='imagens/deslike.png')}}"></a>
+            <a class="btn-favoritar" href="{{url_for('musicas.descurtir_musica', id=musica['id_curtida'], link='paginas.musicas')}}"><img src="{{url_for('static', filename='imagens/like.png')}}"></a>
           {% endif %}
           <a class="btn-reproduzir" href="{{url_for('paginas.musica', id=musica['id'])}}">▶</a>
         </div>
@@ -65,7 +78,7 @@
 
     </section>
   </div>
-
   <script src="script.js"></script>
+  <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
 </body>
 </html>

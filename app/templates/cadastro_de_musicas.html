@@ -1,22 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página Cadastro de Músicas</title>
   <link rel="stylesheet" href="{{url_for('static', filename='css/cadastro_musica.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+  <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/mensagens.css')}}"
+    />
 </head>
 <body>
 
-  {% with messages = get_flashed_messages() %} {% if messages %}
-    <section class="mensagens notificacao">
-      {% for message in messages %}
-      <p>{{ message }}</p>
-      {% endfor %}
-    </section>
-    {% endif %} {% endwith %}
-
+  {% with messages = get_flashed_messages() %} 
+    {% if messages %}
+      <section class="mensagens notificacao">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </section>
+    {% endif %} 
+  {% endwith %}
 
     <div class="sidebar">
       <div class="logo">
@@ -108,5 +113,6 @@
       }
     });
   </script>
+  <script src="{{url_for('static', filename='js/notificacao.js')}}"></script>
 </body>
 </html>

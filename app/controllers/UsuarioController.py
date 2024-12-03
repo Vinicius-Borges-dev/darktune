@@ -2,7 +2,6 @@ from app.models import UsuariosModel
 from flask import (
     current_app as app,
     request,
-    render_template,
     redirect,
     url_for,
     flash,

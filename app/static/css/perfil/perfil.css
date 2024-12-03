@@ -186,3 +186,11 @@ tr {
     
 }
 
+.heart-button img, .play-button img{
+    width: 30px;
+    height: 30px;
+}
+
+.play-button img{
+    filter: invert(1);
+}

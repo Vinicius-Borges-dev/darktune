@@ -73,8 +73,8 @@
                   <span class="song-artist">{{curtida['cantores'] | join(', ')}}</span>
                 </div>
                 <div class="buttons">
-                  <a class="heart-button" href="{{url_for('musicas.descurtir_musica', id=curtida['id'])}}">♡</a>
-                  <a class="play-button" href="{{url_for('paginas.musica', id=curtida['musica_id'])}}">▶</a>
+                  <a class="heart-button" href="{{url_for('musicas.descurtir_musica', id=curtida['id'], link='paginas.conta')}}"><img src="{{url_for('static', filename='imagens/like.png')}}"></a>
+                  <a class="play-button" href="{{url_for('paginas.musica', id=curtida['musica_id'])}}"><img src="{{url_for('static', filename='imagens/icone-play.svg')}}"></a>
                 </div>
               </li>
             {% endfor %}
