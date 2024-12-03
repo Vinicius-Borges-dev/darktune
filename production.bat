@@ -2,7 +2,7 @@
 
 if not exist "venv\" (
     echo Criando ambiente virtual...
-    py -m venv venv
+    python -m venv venv
 )
 
 call venv\Scripts\activate
